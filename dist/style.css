@@ -1,8 +1,4 @@
 :root {
-  --color-primary: #93eb2f;
-  --color-primary-light: #3374ff;
-  --color-primary-dark: #ba265d;
-
   --color-grey-light-1: #faf9f9;
   --color-grey-light-2: #f4f2f2;
   --color-grey-light-3: #f0eeee;
@@ -54,10 +50,6 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
-
-  @media only screen and (max-width: $bp-large) {
-    font-size: 50%;
-  }
 }
 
 body {
@@ -130,8 +122,10 @@ h1 {
 .add-new-todo {
   cursor: pointer;
   padding: 6px 16px;
-  border: 1px solid var(--color-grey-light-4);
-  border-radius: 4px;
+  border-top: 1px solid var(--color-grey-light-4);
+  border-bottom: 1px solid var(--color-grey-light-4);
+  border-right: none;
+  border-left: none;
   background-color: transparent;
   margin: 8px 0;
 }
@@ -150,14 +144,17 @@ th {
 th {
   font-weight: 400;
 }
-.todo-title:hover {
-  outline: 2px solid rebeccapurple;
+
+.todo-date,
+.todo-priority {
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
-.todo-date:hover {
-  outline: 2px solid teal;
-}
-.todo-priority:hover {
-  outline: 2px solid limegreen;
+.todo-priority {
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 /*when use selects a list*/
@@ -168,15 +165,15 @@ th {
   display: none;
 }
 .modal {
-  height: 50rem;
-  width: 50rem;
   background-color: white;
+  border-radius: 11px;
   position: absolute;
   top: 25%;
   left: 50%;
   transform: translate(-50%, 0);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   z-index: 99;
+  padding: var(--space-2xl);
 }
 .overlay {
   position: absolute;
@@ -184,15 +181,60 @@ th {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(93, 93, 93, 0.278);
+  background-color: rgba(31, 27, 27, 0.158);
 }
-.modal {
-  padding: var(--space-2xl);
+
+.modal > * {
+  display: block;
 }
 .change-title {
   border: none;
+  width: 100%;
+  position: relative;
   border-bottom: 1px solid var(--color-grey-light-4);
   outline: none;
-  font-size: var(--text-3xl);
-  width: 66%;
+  font-size: var(--text-lg);
+}
+.change-date {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-light-4);
+  outline: none;
+  margin: var(--space-2xl) 0;
+  font-size: var(--text-lg);
+}
+.change-priority {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-light-4);
+  outline: none;
+  margin: var(--space-2xl) 0;
+  background-color: transparent;
+  font-size: var(--text-lg);
+}
+.comment {
+  border: none;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid var(--color-grey-light-4);
+  outline: none;
+  font-size: var(--text-lg);
+}
+.comment::placeholder {
+  font-size: var(--text-sm);
+}
+.modal-btn-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.todo-delete,
+.todo-submit {
+  cursor: pointer;
+  padding: 6px 0px;
+  width: 37.5%;
+  border: 1px solid var(--color-grey-light-4);
+  border-radius: 4px;
+  background-color: transparent;
 }
