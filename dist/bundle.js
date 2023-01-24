@@ -16,17 +16,17 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pages_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pages/test */ \"./src/pages/test.js\");\n\n\ndocument.querySelector(\"button\").addEventListener(\"click\", () => (0,_pages_test__WEBPACK_IMPORTED_MODULE_0__[\"default\"])());\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/test */ \"./src/modules/test.js\");\n\n\ndocument.querySelector(\"button\").addEventListener(\"click\", () => (0,_modules_test__WEBPACK_IMPORTED_MODULE_0__[\"default\"])());\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/pages/test.js":
-/*!***************************!*\
-  !*** ./src/pages/test.js ***!
-  \***************************/
+/***/ "./src/modules/test.js":
+/*!*****************************!*\
+  !*** ./src/modules/test.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ greetMe)\n/* harmony export */ });\nfunction greetMe() {\n  console.log(\"hello\");\n}\n\n\n//# sourceURL=webpack://todo-list/./src/pages/test.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ greetMe)\n/* harmony export */ });\nfunction greetMe() {\n  console.log(\"hello\");\n}\n\n\n//# sourceURL=webpack://todo-list/./src/modules/test.js?");
 
 /***/ })
 
