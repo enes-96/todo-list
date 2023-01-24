@@ -1,3 +1,153 @@
-button {
-  background-color: red;
+:root {
+  --color-primary: #93eb2f;
+  --color-primary-light: #3374ff;
+  --color-primary-dark: #ba265d;
+
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #e7e7e7;
+
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+
+  --line: 1px solid var(--color-grey-light-2);
+
+  --text-xs: 1.2rem;
+  --text-sm: 1.4rem;
+  --text-base: 1.6rem;
+  --text-lg: 1.8rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+  --text-3xl: 3.8rem;
+  --text-4xl: 4.6rem;
+  --text-5xl: 5.4rem;
+  --text-6xl: 6.8rem;
+
+  --space-sm: 4px;
+  --space-md: 8px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 34px;
+  --space-3xl: 52px;
+  --space-4xl: 84px;
+  --space-5xl: 102px;
+  --space-6xl: 122px;
+  --space-7xl: 146px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-large) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-2);
+  min-height: 100vh;
+}
+.BODY-WRAPPER {
+  display: flex;
+}
+/*********************************************/
+.sidebar {
+  background-color: var(--color-grey-light-2);
+  height: 100vh;
+  width: 22rem;
+  position: relative;
+  font-size: var(--text-lg);
+}
+
+.wrapper-dates,
+.wrapper-projects,
+.sidebar-footer {
+  padding: var(--space-2xl) 0 var(--space-md) 0;
+}
+.wrapper-date-item,
+.wrapper-project-item,
+.wrapper-sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-lg);
+}
+.wrapper-date-item:hover,
+.wrapper-project-item:hover,
+.wrapper-sidebar-footer:hover {
+  background-color: var(--color-grey-light-4);
+}
+.item-logo {
+  fill: none;
+  stroke-width: 1.5;
+  stroke: var(--color-grey-dark-2);
+  height: 18px;
+  width: 18px;
+}
+h5 {
+  font-weight: 500;
+}
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+}
+/*when use selects a list*/
+.selected {
+  background-color: var(--color-grey-light-4);
+}
+/*************sidebar*********************/
+main {
+  padding-top: var(--space-4xl);
+  padding-right: var(--space-2xl);
+  padding-left: var(--space-3xl);
+  width: calc(100% - 22rem);
+  color: var(--color-grey-dark-1);
+  font-size: var(--text-base);
+}
+h1 {
+  font-size: var(--text-3xl);
+}
+.add-new-todo {
+  cursor: pointer;
+  padding: 6px 16px;
+  border: 1px solid var(--color-grey-light-4);
+  border-radius: 4px;
+  background-color: transparent;
+  margin: 8px 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  text-align: left;
+  padding: 0.8rem;
+  border: var(--line);
+  font-weight: 500;
+}
+th {
+  font-weight: 400;
 }
