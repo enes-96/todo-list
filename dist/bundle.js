@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("function selectProject() {\n  const mainTitle = document.querySelector(\".main-title\");\n  const table = document.querySelector(\".table-wrapper\");\n\n  const dateProjects = document.querySelectorAll(\".wrapper-date-item\");\n  dateProjects.forEach((item) => {\n    item.addEventListener(\"click\", (e) => {\n      dateProjects.forEach((el) => {\n        item.classList.add(\"selected\");\n        mainTitle.textContent = item.textContent;\n        if (el !== item) {\n          el.classList.remove(\"selected\");\n        }\n      });\n    });\n  });\n\n  const newProjects = document.querySelectorAll(\".wrapper-project-item\");\n  newProjects.forEach((item) => {\n    item.addEventListener(\"click\", (e) => {\n      newProjects.forEach((el) => {\n        mainTitle.textContent = item.textContent;\n        item.classList.add(\"selected\");\n        if (el !== item) {\n          el.classList.remove(\"selected\");\n        }\n      });\n    });\n  });\n}\nselectProject();\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ })
 
