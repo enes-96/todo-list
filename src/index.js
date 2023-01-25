@@ -1,8 +1,9 @@
+const dateProjects = document.querySelectorAll(".wrapper-project-item");
+
 function selectProject() {
   const mainTitle = document.querySelector(".main-title");
   const table = document.querySelector(".table-wrapper");
 
-  const dateProjects = document.querySelectorAll(".wrapper-date-item");
   dateProjects.forEach((item) => {
     item.addEventListener("click", (e) => {
       dateProjects.forEach((el) => {
@@ -14,18 +15,18 @@ function selectProject() {
       });
     });
   });
-
-  const newProjects = document.querySelectorAll(".wrapper-project-item");
-  newProjects.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      newProjects.forEach((el) => {
-        mainTitle.textContent = item.textContent;
-        item.classList.add("selected");
-        if (el !== item) {
-          el.classList.remove("selected");
-        }
-      });
-    });
+}
+addNewProject();
+selectProject();
+function addNewProject() {
+  const btnNewProject = document.getElementById("btnNewProject");
+  btnNewProject.addEventListener("click", () => {
+    const createProject = document.createElement("div");
+    createProject.classList.add("wrapper-project-item");
+    createProject.textContent = "motehrfucker";
+    const userProjectsWrapper = document.body.querySelector(
+      ".wrapper-user-projects"
+    );
+    userProjectsWrapper.appendChild(createProject);
   });
 }
-selectProject();

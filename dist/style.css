@@ -77,7 +77,6 @@ body {
 .sidebar-footer {
   padding: var(--space-2xl) 0 var(--space-md) 0;
 }
-.wrapper-date-item,
 .wrapper-project-item,
 .wrapper-sidebar-footer {
   display: flex;
@@ -86,7 +85,6 @@ body {
   cursor: pointer;
   padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-lg);
 }
-.wrapper-date-item:hover,
 .wrapper-project-item:hover,
 .wrapper-sidebar-footer:hover {
   background-color: var(--color-grey-light-4);
@@ -174,6 +172,8 @@ th {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   z-index: 99;
   padding: var(--space-2xl);
+  height: 320px;
+  width: 320px;
 }
 .overlay {
   position: absolute;
