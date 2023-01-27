@@ -1,17 +1,28 @@
 const btnNewProject = document.getElementById("btnNewProject");
 
+btnNewProject.addEventListener("click", () => {
+  addNewProject();
+  selectProject();
+});
+
 function selectProject() {
-  const dateProjects = document.querySelectorAll(".wrapper-project-item");
+  const allProjects = document.querySelectorAll(".wrapper-project-item");
   const mainTitle = document.getElementById("mainTitle");
-  dateProjects.forEach((item) => {
+
+  allProjects.forEach((item) => {
     item.addEventListener("click", (e) => {
-      dateProjects.forEach((el) => {
+      allProjects.forEach((el) => {
         item.classList.add("selected");
         mainTitle.textContent = item.textContent;
         if (el !== item) {
           el.classList.remove("selected");
         }
       });
+    });
+  });
+  allProjects.forEach((item) => {
+    item.addEventListener("dblclick", () => {
+      item.remove();
     });
   });
 }
@@ -33,21 +44,29 @@ function addNewProject() {
   projectIcon.setAttribute("viewBox", "0 0 24 24");
   projectIcon.appendChild(path);
   projectIcon.classList.add("item-logo");
-
-  const createItemName = document.createElement("h5");
-  createItemName.textContent = "Untitled";
-  createItemName.classList.add("project-item-name");
   createProject.appendChild(projectIcon);
-  createProject.appendChild(createItemName);
 
-  const userProjectsWrapper = document.body.querySelector(
-    ".wrapper-user-projects"
-  );
+  //----------------
+
+  function generateItem() {
+    const createItemName = document.createElement("input");
+    createProject.appendChild(createItemName);
+
+    createItemName.addEventListener("change", () => {
+      const h5 = document.createElement("h5");
+      h5.innerText = createItemName.value;
+      h5.classList.add("project-item-name");
+      createProject.replaceChild(h5, createItemName);
+    });
+  }
+
+  function edtiItemTitle() {}
+
+  generateItem();
+
+  //---------------------------------------------
+  const userProjectsWrapper = document.querySelector(".wrapper-user-projects");
   userProjectsWrapper.appendChild(createProject);
 }
-selectProject();
 
-btnNewProject.addEventListener("click", () => {
-  addNewProject();
-  selectProject();
-});
+selectProject();
