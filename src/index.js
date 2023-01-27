@@ -1,5 +1,4 @@
 const btnNewProject = document.getElementById("btnNewProject");
-
 btnNewProject.addEventListener("click", () => {
   addNewProject();
   selectProject();
@@ -19,8 +18,7 @@ function selectProject() {
         }
       });
     });
-  });
-  allProjects.forEach((item) => {
+
     item.addEventListener("dblclick", () => {
       item.remove();
     });
@@ -48,21 +46,15 @@ function addNewProject() {
 
   //----------------
 
-  function generateItem() {
-    const createItemName = document.createElement("input");
-    createProject.appendChild(createItemName);
+  const createItemName = document.createElement("input");
+  createProject.appendChild(createItemName);
 
-    createItemName.addEventListener("change", () => {
-      const h5 = document.createElement("h5");
-      h5.innerText = createItemName.value;
-      h5.classList.add("project-item-name");
-      createProject.replaceChild(h5, createItemName);
-    });
-  }
-
-  function edtiItemTitle() {}
-
-  generateItem();
+  createItemName.addEventListener("change", () => {
+    const h5 = document.createElement("h5");
+    h5.innerText = createItemName.value;
+    h5.classList.add("project-item-name");
+    createProject.replaceChild(h5, createItemName);
+  });
 
   //---------------------------------------------
   const userProjectsWrapper = document.querySelector(".wrapper-user-projects");
