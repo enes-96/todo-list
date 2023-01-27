@@ -48,10 +48,13 @@ function addNewProject() {
 
   const createItemName = document.createElement("input");
   createProject.appendChild(createItemName);
+  const h5 = document.createElement("h5");
 
-  createItemName.addEventListener("change", () => {
-    const h5 = document.createElement("h5");
-    h5.innerText = createItemName.value;
+  createItemName.addEventListener("input", (e) => {
+    mainTitle.textContent = e.target.value;
+  });
+  createItemName.addEventListener("focusout", (e) => {
+    h5.innerText = e.target.value;
     h5.classList.add("project-item-name");
     createProject.replaceChild(h5, createItemName);
   });
@@ -62,3 +65,6 @@ function addNewProject() {
 }
 
 selectProject();
+window.addEventListener("keydown", (e) => {
+  console.log(e.key);
+});
