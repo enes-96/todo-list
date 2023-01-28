@@ -1,4 +1,6 @@
 const btnNewProject = document.getElementById("btnNewProject");
+const userProjectsWrapper = document.querySelector(".wrapper-user-projects");
+
 btnNewProject.addEventListener("click", () => {
   addNewProject();
   selectProject();
@@ -17,10 +19,14 @@ function selectProject() {
           el.classList.remove("selected");
         }
       });
-    });
-
-    item.addEventListener("dblclick", () => {
-      item.remove();
+      const projectItems = document.querySelectorAll(
+        ".wrapper-user-projects .wrapper-project-item"
+      );
+      projectItems.forEach((item) => {
+        item.addEventListener("dblclick", () => {
+          item.remove();
+        });
+      });
     });
   });
 }
@@ -60,11 +66,7 @@ function addNewProject() {
   });
 
   //---------------------------------------------
-  const userProjectsWrapper = document.querySelector(".wrapper-user-projects");
   userProjectsWrapper.appendChild(createProject);
 }
 
 selectProject();
-window.addEventListener("keydown", (e) => {
-  console.log(e.key);
-});
