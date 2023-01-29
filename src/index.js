@@ -7,9 +7,7 @@ function selectProject() {
   const allProjects = document.querySelectorAll(".wrapper-project-item");
 
   const mainTitle = document.getElementById("mainTitle");
-  const projectItems = document.querySelectorAll(
-    ".wrapper-user-projects .wrapper-project-item"
-  );
+
   //loop over all projects and listen for click
   allProjects.forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -32,8 +30,7 @@ function addNewProject() {
 
   //item wrapper (icon and name) and syling
   const createProject = document.createElement("div");
-  createProject.classList.add("wrapper-project-item");
-
+  createProject.classList.add("wrapper-project-item", "project-item");
   (function createIcon() {
     const projectIcon = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -57,6 +54,7 @@ function addNewProject() {
   // first create a input and append to item wrapper
   const createProjectNameInput = document.createElement("input");
   createProject.appendChild(createProjectNameInput);
+  //focus on input
   window.setTimeout(() => createProjectNameInput.focus(), 0);
 
   //dynamicly type title
@@ -64,22 +62,24 @@ function addNewProject() {
     mainTitle.textContent = e.target.value;
   });
   //turn to title
-  createProjectNameInput.addEventListener("focusout", (e) => {
+  createProjectNameInput.addEventListener("blur", (e) => {
     const newProjectName = document.createElement("h5");
-    newProjectName.innerText = e.target.value;
+    newProjectName.textContent = e.target.value;
     newProjectName.classList.add("project-item-name");
     createProject.replaceChild(newProjectName, createProjectNameInput);
-    if (newProjectName.innerText === "") {
+    if (!newProjectName.innerText) {
       createProject.remove();
     }
   });
 
   //listen for right click
-  addContextMenu(createProject);
   userProjectsContainer.appendChild(createProject);
+  addContextMenu(createProject);
+  deleteProject();
+  editProject();
 }
 
-//right click listener
+//right click function
 function addContextMenu(contextItem) {
   const contextContainer = document.querySelector(".context-menu");
   contextItem.addEventListener("contextmenu", handleContextMenu);
@@ -97,10 +97,29 @@ function addContextMenu(contextItem) {
     e.preventDefault();
   });
 }
-
-function deleteProjects() {
-  const userProjects = document.querySelectorAll(
-    ".wrp-user-projct .wrapper-project-item"
-  );
+//delete from context menu
+function deleteProject() {
+  const projectItems = document.querySelectorAll(".project-item");
+  const deleteBtn = document.querySelector(".delete-user-project");
+  //if project is selected,then it can be deletet
+  deleteBtn.addEventListener("click", () => {
+    projectItems.forEach((item) => {
+      if (item.classList.contains("selected")) {
+        item.remove();
+        mainTitle.innerHtml = "";
+      }
+    });
+  });
+}
+//edit project from context menu
+function editProject() {
+  const projectItems = document.querySelectorAll(".project-item");
+  const editBtn = document.querySelector(".edit-user-project");
+  editBtn.addEventListener("click", () => {
+    projectItems.forEach((item) => {
+      if (item.classList.contains("selected")) {
+      }
+    });
+  });
 }
 selectProject();
