@@ -18,7 +18,7 @@
     <div class="BODY-WRAPPER">
       <section class="sidebar">
         <div class="wrapper-dates">
-          <div class="wrapper-project-item" id="todoSection">
+          <div class="wrapper-project-item selected" id="todoSection">
             <svg class="item-logo" , viewBox="0 0 24 24">
               <path d="M4.5 12.75l6 6 9-13.5" />
             </svg>
@@ -60,9 +60,9 @@
         </div>
       </section>
       <main class="main" id="main">
-        <h1 id="mainTitle"></h1>
+        <h1 id="mainTitle">To-do</h1>
         <section class="table-wrapper">
-          <button class="add-new-todo">new</button>
+          <button class="add-new-task">new</button>
           <table class="table">
             <tr class="table-header-row">
               <th>Title</th>
@@ -97,8 +97,8 @@
       </select>
       <input type="text" class="comment" placeholder="comment" />
       <div class="modal-btn-wrapper">
-        <button class="todo-delete">delte</button>
-        <button class="todo-submit">submit</button>
+        <button class="task-delete">delete</button>
+        <button class="task-submit">submit</button>
       </div>
     </div>
     <div class="context-menu hidden">

@@ -5,7 +5,6 @@ document.getElementById("btnNewProject").addEventListener("click", () => {
 
 function selectProject() {
   const allProjects = document.querySelectorAll(".wrapper-project-item");
-
   const mainTitle = document.getElementById("mainTitle");
 
   //loop over all projects and listen for click
@@ -61,18 +60,41 @@ function addNewProject() {
   createProjectNameInput.addEventListener("input", (e) => {
     mainTitle.textContent = e.target.value;
   });
-  //turn to title
-  createProjectNameInput.addEventListener("blur", (e) => {
-    const newProjectName = document.createElement("h5");
-    newProjectName.textContent = e.target.value;
-    newProjectName.classList.add("project-item-name");
-    createProject.replaceChild(newProjectName, createProjectNameInput);
-    if (!newProjectName.innerText) {
-      createProject.remove();
+
+  const newProjectName = document.createElement("h5");
+  //user enter , transform input to h5
+  createProjectNameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      newProjectName.textContent = e.target.value;
+      console.log(e.target.value);
+      newProjectName.classList.add("project-item-name");
+      createProject.replaceChild(newProjectName, createProjectNameInput);
+      //if input is empty remove item
+      if (!newProjectName.innerText) {
+        createProject.remove();
+      }
     }
   });
 
-  //listen for right click
+  //edit project
+  function editProject() {
+    const projectItems = document.querySelectorAll(".project-item");
+    const editBtn = document.querySelector(".edit-user-project");
+    editBtn.addEventListener("click", () => {
+      projectItems.forEach((item) => {
+        if (item.classList.contains("selected")) {
+          editItem(item);
+        }
+      });
+    });
+    //transform h5 title to input
+    function editItem(item) {
+      item.replaceChild(createProjectNameInput, newProjectName);
+      window.setTimeout(() => createProjectNameInput.focus(), 0);
+    }
+  }
+
+  //append item to his wrapper
   userProjectsContainer.appendChild(createProject);
   addContextMenu(createProject);
   deleteProject();
@@ -111,15 +133,22 @@ function deleteProject() {
     });
   });
 }
-//edit project from context menu
-function editProject() {
-  const projectItems = document.querySelectorAll(".project-item");
-  const editBtn = document.querySelector(".edit-user-project");
-  editBtn.addEventListener("click", () => {
-    projectItems.forEach((item) => {
-      if (item.classList.contains("selected")) {
-      }
-    });
-  });
-}
+
 selectProject();
+//--------------------------------------------------sidebar
+const buttonNewTask = document.body.querySelector(".add-new-task");
+const taskModal = document.querySelector(".modal");
+
+const overlay = document.querySelector(".overlay");
+buttonNewTask.addEventListener("click", () => {
+  toggleModal();
+});
+const taskSubmit = taskModal.querySelector(".task-submit");
+taskSubmit.addEventListener("click", toggleModal);
+
+const taskDelete = taskModal.querySelector(".task-delete");
+taskDelete.addEventListener("click", toggleModal);
+function toggleModal() {
+  taskModal.classList.toggle("hidden");
+  overlay.classList.toggle("hidden");
+}
