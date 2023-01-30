@@ -20,7 +20,7 @@ function selectProject() {
     });
   });
 }
-
+//sidebar
 function addNewProject() {
   const userProjectsContainer = document.querySelector(".wrp-user-projct");
 
@@ -132,23 +132,27 @@ function deleteProject() {
   });
 }
 //--------------------------------------------------sidebar
+
 function manageItem() {
+  //add task button
   document.body.querySelector(".add-new-task").addEventListener("click", () => {
     toggleModal();
   });
-
   const taskModal = document.querySelector(".modal");
 
   function submitTask() {
     const taskSubmit = taskModal.querySelector(".task-submit");
     taskSubmit.addEventListener("click", () => {
       toggleModal();
+
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = taskModal.querySelector(".change-priority");
+      const priorityValue =
+        setTaskPriority[setTaskPriority.selectedIndex].value;
+      console.log(priorityValue);
 
-      console.log(setTaskPriority.value);
-      createNewTask(setTaskName.value, setTasDate.value, setTaskPriority.value);
+      createNewTask(setTaskName.value, setTasDate.value);
     });
   }
 
@@ -167,11 +171,19 @@ function manageItem() {
   deleteTask();
 }
 //--------------------
-function createNewTask(taskTitle, taskDate, taskPriority) {
-  const table = document.querySelector(".table");
-
+function createNewTask(taskTitle, taskDate) {
+  const tableRow = document.querySelector("tbody");
   const newTableRow = document.createElement("tr");
-  table.appendChild(newTableRow);
+  tableRow.appendChild(newTableRow);
+
+  //checkbox dont need a argument
+  createCheckbox();
+  //first argument
+  createTitle();
+  //second argument
+  createDate();
+  //third argument
+  createPriority();
 
   function createTaskProperty(
     elementProperty,
@@ -187,78 +199,84 @@ function createNewTask(taskTitle, taskDate, taskPriority) {
     newItem.type = elementType;
     return newItem;
   }
-  const newTaskCheck = createTaskProperty("td", "checkbox-td", newTableRow);
+  function createCheckbox() {
+    const newTaskCheck = createTaskProperty("td", "checkbox-td", newTableRow);
 
-  const newTaskCheckWrapper = createTaskProperty(
-    "div",
-    "checkbox-wrapper",
-    newTaskCheck
-  );
-  const taskCheckBox = createTaskProperty(
-    "input",
-    "task-checkbox",
-    newTaskCheckWrapper
-  );
-  taskCheckBox.type = "checkbox";
+    const newTaskCheckWrapper = createTaskProperty(
+      "div",
+      "checkbox-wrapper",
+      newTaskCheck
+    );
+    const taskCheckBox = createTaskProperty(
+      "input",
+      "task-checkbox",
+      newTaskCheckWrapper,
+      "",
+      "checkbox"
+    );
+  }
+  function createTitle() {
+    const newTaskTitle = createTaskProperty("td", "title-wrapper", newTableRow);
 
-  const newTaskTitle = createTaskProperty("td", "title-wrapper", newTableRow);
+    const newTitleInput = createTaskProperty(
+      "input",
+      "todo-title",
+      newTaskTitle,
+      taskTitle
+    );
+  }
+  function createDate() {
+    const newTaskDate = createTaskProperty("td", "date-wrapper", newTableRow);
 
-  const newTitleInput = createTaskProperty(
-    "input",
-    "todo-title",
-    newTaskTitle,
-    taskTitle
-  );
+    const taskDateInput = createTaskProperty(
+      "input",
+      "todo-date",
+      newTaskDate,
+      taskDate,
+      "date"
+    );
+  }
+  function createPriority() {
+    //create a table data and append to row
+    const newTaskPriority = createTaskProperty(
+      "td",
+      "priority-wrapper",
+      newTableRow
+    );
+    //create select element and append to table data above
+    const prioritysWrapper = document.createElement("select");
+    prioritysWrapper.classList.add("todo-priority");
+    newTaskPriority.appendChild(prioritysWrapper);
+    //
 
-  const newTaskDate = createTaskProperty("td", "date-wrapper", newTableRow);
+    //add options to select
+    const priorityHigh = createTaskProperty(
+      "option",
+      "option-high",
+      prioritysWrapper,
+      "high"
+    );
+    priorityHigh.textContent = "High";
 
-  const taskDateInput = createTaskProperty(
-    "input",
-    "todo-date",
-    newTaskDate,
-    taskDate,
-    "date"
-  );
+    const priorityMedium = createTaskProperty(
+      "option",
+      "option-medium",
+      prioritysWrapper,
+      "medium"
+    );
+    priorityMedium.textContent = "Medium";
 
-  const newTaskPriority = createTaskProperty(
-    "td",
-    "priority-wrapper",
-    newTableRow
-  );
+    const priorityLow = createTaskProperty(
+      "option",
+      "option-low",
+      prioritysWrapper,
+      "low"
+    );
+    priorityLow.textContent = "Low";
 
-  //const prioritysWrapper = createTaskProperty("select","todo-priority",newTaskPriority)
-
-  const prioritysWrapper = document.createElement("select");
-  prioritysWrapper.classList.add("todo-priority");
-  newTaskPriority.appendChild(prioritysWrapper);
-  //
-
-  const priorityHigh = createTaskProperty(
-    "option",
-    "option-high",
-    prioritysWrapper,
-    "high"
-  );
-  priorityHigh.textContent = "High";
-
-  const priorityMedium = createTaskProperty(
-    "option",
-    "option-medium",
-    prioritysWrapper,
-    "medium"
-  );
-  priorityMedium.textContent = "Medium";
-
-  const priorityLow = createTaskProperty(
-    "option",
-    "option-low",
-    prioritysWrapper,
-    "low"
-  );
-  priorityLow.textContent = "Low";
-
-  const priorityValue = prioritysWrapper.value;
-  console.log(alert(prioritysWrapper.textContent));
+    console.log(prioritysWrapper);
+  }
 }
+
 manageItem();
 selectProject();
