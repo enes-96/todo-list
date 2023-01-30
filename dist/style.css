@@ -77,12 +77,8 @@ body {
 }
 
 .wrapper-dates,
-.wrapper-projects,
-.sidebar-footer {
+.wrapper-projects {
   padding: var(--space-2xl) 0 var(--space-md) 0;
-}
-.sidebar-footer {
-  padding-bottom: 0;
 }
 .wrapper-project-item,
 .wrapper-sidebar-footer {
@@ -153,12 +149,26 @@ th {
 th {
   font-weight: 400;
 }
-
+th:first-child {
+  width: 6rem;
+}
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkbox-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todo-title,
 .todo-date,
 .todo-priority {
   border: none;
   outline: none;
   cursor: pointer;
+  font-size: var(--text-md);
 }
 .todo-priority {
   border: none;
@@ -213,6 +223,7 @@ th {
   outline: none;
   margin: var(--space-2xl) 0;
   font-size: var(--text-lg);
+  color: var(--color-grey-dark-2);
 }
 .change-priority {
   width: 100%;
@@ -222,6 +233,7 @@ th {
   margin: var(--space-2xl) 0;
   background-color: transparent;
   font-size: var(--text-lg);
+  color: var(--color-grey-dark-2);
 }
 .comment {
   border: none;
@@ -232,7 +244,7 @@ th {
   font-size: var(--text-lg);
 }
 .comment::placeholder {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
 }
 .modal-btn-wrapper {
   margin-top: 24px;
@@ -275,4 +287,8 @@ th {
 .edit-user-project:hover {
   cursor: pointer;
   background-color: var(--color-grey-light-2);
+}
+input[type="checkbox"] {
+  height: 2rem;
+  width: 2rem;
 }

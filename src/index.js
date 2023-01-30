@@ -10,10 +10,8 @@ function selectProject() {
   //loop over all projects and listen for click
   allProjects.forEach((item) => {
     item.addEventListener("click", (e) => {
-      //add the selected effect
       item.classList.add("selected");
       mainTitle.textContent = item.textContent;
-      //if user clicks another projects remove previous one
       allProjects.forEach((el) => {
         if (el !== item) {
           el.classList.remove("selected");
@@ -24,7 +22,6 @@ function selectProject() {
 }
 
 function addNewProject() {
-  //new projects comes in there
   const userProjectsContainer = document.querySelector(".wrp-user-projct");
 
   //item wrapper (icon and name) and syling
@@ -53,10 +50,8 @@ function addNewProject() {
   // first create a input and append to item wrapper
   const createProjectNameInput = document.createElement("input");
   createProject.appendChild(createProjectNameInput);
-  //focus on input
   window.setTimeout(() => createProjectNameInput.focus(), 0);
 
-  //dynamicly type title
   createProjectNameInput.addEventListener("input", (e) => {
     mainTitle.textContent = e.target.value;
   });
@@ -133,22 +128,87 @@ function deleteProject() {
     });
   });
 }
-
-selectProject();
 //--------------------------------------------------sidebar
-const buttonNewTask = document.body.querySelector(".add-new-task");
-const taskModal = document.querySelector(".modal");
+function manageItem() {
+  document.body.querySelector(".add-new-task").addEventListener("click", () => {
+    toggleModal();
+  });
 
-const overlay = document.querySelector(".overlay");
-buttonNewTask.addEventListener("click", () => {
-  toggleModal();
-});
-const taskSubmit = taskModal.querySelector(".task-submit");
-taskSubmit.addEventListener("click", toggleModal);
+  const taskModal = document.querySelector(".modal");
+  const overlay = document.querySelector(".overlay");
 
-const taskDelete = taskModal.querySelector(".task-delete");
-taskDelete.addEventListener("click", toggleModal);
-function toggleModal() {
-  taskModal.classList.toggle("hidden");
-  overlay.classList.toggle("hidden");
+  function submitTask() {
+    const taskSubmit = taskModal.querySelector(".task-submit");
+    taskSubmit.addEventListener("click", () => {
+      toggleModal();
+      const setTaskName = taskModal.querySelector(".change-title");
+      const setTasDate = taskModal.querySelector(".change-date");
+
+      createNewTask(setTaskName.value, setTasDate.value);
+    });
+  }
+
+  function deleteTask() {
+    const taskDeleteButton = taskModal.querySelector(".task-delete");
+    taskDeleteButton.addEventListener("click", toggleModal);
+  }
+
+  function toggleModal() {
+    taskModal.classList.toggle("hidden");
+    overlay.classList.toggle("hidden");
+  }
+
+  submitTask();
+  deleteTask();
 }
+//--------------------
+function createNewTask(taskTitle, taskDate) {
+  const table = document.querySelector(".table");
+  const newTableRow = document.createElement("tr");
+  table.appendChild(newTableRow);
+  const newTaskCheck = document.createElement("td");
+  newTableRow.appendChild(newTaskCheck);
+  const taskCheckBoxWrapper = document.createElement("div");
+  taskCheckBoxWrapper.classList.add("checkbox-wrapper");
+  newTaskCheck.appendChild(taskCheckBoxWrapper);
+  const taskCheckBox = document.createElement("input");
+  taskCheckBox.type = "checkbox";
+  taskCheckBoxWrapper.appendChild(taskCheckBox);
+  const newTaskTitle = document.createElement("td");
+  const newTitleInput = document.createElement("input");
+  newTitleInput.classList.add("todo-title");
+  newTaskTitle.appendChild(newTitleInput);
+  newTitleInput.value = taskTitle;
+  newTableRow.appendChild(newTaskTitle);
+  const newTaskDate = document.createElement("td");
+  newTableRow.appendChild(newTaskDate);
+  const taskDateInput = document.createElement("input");
+  taskDateInput.type = "date";
+  taskDateInput.classList.add("todo-date");
+  taskDateInput.value = taskDate;
+  newTaskDate.appendChild(taskDateInput);
+  createPriority();
+
+  function createPriority() {
+    const newTaskPriority = document.createElement("td");
+    newTableRow.appendChild(newTaskPriority);
+    const prioritysWrapper = document.createElement("select");
+    prioritysWrapper.classList.add("todo-priority");
+    newTaskPriority.appendChild(prioritysWrapper);
+    const priorityHigh = document.createElement("option");
+    priorityHigh.value = "high";
+    priorityHigh.textContent = "High";
+    const priorityMedium = document.createElement("option");
+    priorityMedium.value = "medium";
+    priorityMedium.textContent = "Medium";
+    const priorityLow = document.createElement("option");
+    priorityLow.value = "low";
+    priorityLow.textContent = "Low";
+    prioritysWrapper.appendChild(priorityHigh);
+    prioritysWrapper.appendChild(priorityMedium);
+    prioritysWrapper.appendChild(priorityLow);
+    const priorityValue = prioritysWrapper.value;
+  }
+}
+manageItem();
+selectProject();
