@@ -147,11 +147,6 @@ function manageItem() {
 
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
-      const setTaskPriority = taskModal.querySelector(".change-priority");
-      const priorityValue =
-        setTaskPriority[setTaskPriority.selectedIndex].value;
-      console.log(priorityValue);
-
       createNewTask(setTaskName.value, setTasDate.value);
     });
   }
@@ -274,7 +269,11 @@ function createNewTask(taskTitle, taskDate) {
     );
     priorityLow.textContent = "Low";
 
-    console.log(prioritysWrapper);
+    const setTaskPriority = document.querySelector(".change-priority");
+    const priorityValue = setTaskPriority[setTaskPriority.selectedIndex].value;
+    prioritysWrapper.value = priorityValue;
+
+    console.log(setTaskPriority, priorityValue, prioritysWrapper.value);
   }
 }
 

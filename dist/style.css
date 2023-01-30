@@ -292,9 +292,3 @@ input[type="checkbox"] {
   height: 2rem;
   width: 2rem;
 }
-.priority-wrapper {
-  background-color: rebeccapurple;
-}
-.todo-priority {
-  background-color: red;
-}
