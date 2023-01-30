@@ -272,8 +272,6 @@ function createNewTask(taskTitle, taskDate) {
     const setTaskPriority = document.querySelector(".change-priority");
     const priorityValue = setTaskPriority[setTaskPriority.selectedIndex].value;
     prioritysWrapper.value = priorityValue;
-
-    console.log(setTaskPriority, priorityValue, prioritysWrapper.value);
   }
 }
 
