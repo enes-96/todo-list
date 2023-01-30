@@ -27,6 +27,7 @@ function addNewProject() {
   //item wrapper (icon and name) and syling
   const createProject = document.createElement("div");
   createProject.classList.add("wrapper-project-item", "project-item");
+
   (function createIcon() {
     const projectIcon = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -135,7 +136,6 @@ function manageItem() {
   });
 
   const taskModal = document.querySelector(".modal");
-  const overlay = document.querySelector(".overlay");
 
   function submitTask() {
     const taskSubmit = taskModal.querySelector(".task-submit");
@@ -155,6 +155,7 @@ function manageItem() {
 
   function toggleModal() {
     taskModal.classList.toggle("hidden");
+    const overlay = document.querySelector(".overlay");
     overlay.classList.toggle("hidden");
   }
 
@@ -164,13 +165,16 @@ function manageItem() {
 //--------------------
 function createNewTask(taskTitle, taskDate) {
   const table = document.querySelector(".table");
+
   const newTableRow = document.createElement("tr");
   table.appendChild(newTableRow);
-  const newTaskCheck = document.createElement("td");
-  newTableRow.appendChild(newTaskCheck);
-  const taskCheckBoxWrapper = document.createElement("div");
-  taskCheckBoxWrapper.classList.add("checkbox-wrapper");
-  newTaskCheck.appendChild(taskCheckBoxWrapper);
+
+  function createANDappend(createItem, appendTo) {
+    const itemProperty = document.createElement(createItem);
+    appendTo.appendChild(createItem);
+  }
+  createANDappend("td", newTableRow);
+  createANDappend("div", taskCheckBoxWrapper);
   const taskCheckBox = document.createElement("input");
   taskCheckBox.type = "checkbox";
   taskCheckBoxWrapper.appendChild(taskCheckBox);
