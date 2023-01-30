@@ -169,12 +169,11 @@ function createNewTask(taskTitle, taskDate) {
   const newTableRow = document.createElement("tr");
   table.appendChild(newTableRow);
 
-  function createANDappend(createItem, appendTo) {
-    const itemProperty = document.createElement(createItem);
-    appendTo.appendChild(createItem);
-  }
-  createANDappend("td", newTableRow);
-  createANDappend("div", taskCheckBoxWrapper);
+  const newTaskCheck = document.createElement("td");
+  newTableRow.appendChild(newTaskCheck);
+  const taskCheckBoxWrapper = document.createElement("div");
+  taskCheckBoxWrapper.classList.add("checkbox-wrapper");
+  newTaskCheck.appendChild(taskCheckBoxWrapper);
   const taskCheckBox = document.createElement("input");
   taskCheckBox.type = "checkbox";
   taskCheckBoxWrapper.appendChild(taskCheckBox);
