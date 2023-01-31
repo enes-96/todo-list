@@ -71,6 +71,7 @@ body {
   color: var(--color-grey-dark-2);
   overflow-x: hidden;
   overflow-y: scroll;
+  transition: 0.3s all;
 }
 .sidebar::-webkit-scrollbar {
   display: none;
@@ -291,4 +292,21 @@ th:first-child {
 input[type="checkbox"] {
   height: 2rem;
   width: 2rem;
+}
+.todo-title::placeholder {
+  color: var(--color-grey-light-4);
+}
+.task-icon-wrapper {
+  position: absolute;
+  width: 4.2rem;
+  height: 4.2rem;
+  display: flex;
+  justify-content: center;
+}
+.task-hover-icon {
+  stroke: var(--color-grey-dark-3);
+  left: 340px;
+  height: 4.2rem;
+  width: 2.4rem;
+  cursor: pointer;
 }

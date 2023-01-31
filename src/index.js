@@ -2,7 +2,7 @@ document.getElementById("btnNewProject").addEventListener("click", () => {
   addNewProject();
   selectProject();
 });
-
+//sidebar select
 function selectProject() {
   const allProjects = document.querySelectorAll(".wrapper-project-item");
   const mainTitle = document.getElementById("mainTitle");
@@ -62,7 +62,6 @@ function addNewProject() {
   createProjectNameInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       newProjectName.textContent = e.target.value;
-      console.log(e.target.value);
       newProjectName.classList.add("project-item-name");
       createProject.replaceChild(newProjectName, createProjectNameInput);
       //if input is empty remove item
@@ -76,6 +75,7 @@ function addNewProject() {
   function editProject() {
     const projectItems = document.querySelectorAll(".project-item");
     const editBtn = document.querySelector(".edit-user-project");
+    //edit only the selected item
     editBtn.addEventListener("click", () => {
       projectItems.forEach((item) => {
         if (item.classList.contains("selected")) {
@@ -134,7 +134,7 @@ function deleteProject() {
 //--------------------------------------------------sidebar
 
 function manageItem() {
-  //add task button
+  //new task button
   document.body.querySelector(".add-new-task").addEventListener("click", () => {
     toggleModal();
   });
@@ -142,12 +142,18 @@ function manageItem() {
 
   function submitTask() {
     const taskSubmit = taskModal.querySelector(".task-submit");
+
     taskSubmit.addEventListener("click", () => {
       toggleModal();
-
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
-      createNewTask(setTaskName.value, setTasDate.value);
+      const setTaskPriority = document.querySelector(".change-priority");
+      createNewTask(setTaskName.value, setTasDate.value, setTaskPriority.value);
+
+      //reset modal
+      setTaskName.value = "";
+      setTasDate.value = "";
+      setTaskPriority.value = "";
     });
   }
 
@@ -166,11 +172,30 @@ function manageItem() {
   deleteTask();
 }
 //--------------------
-function createNewTask(taskTitle, taskDate) {
+function createNewTask(taskTitle, taskDate, taskPriorty) {
   const tableRow = document.querySelector("tbody");
   const newTableRow = document.createElement("tr");
+
   tableRow.appendChild(newTableRow);
 
+  const taskIconWrapper = document.querySelector(".task-icon-wrapper");
+  taskIconWrapper.style.display = "none";
+
+  newTableRow.addEventListener("mouseover", () => {
+    const newTableRowPositions = newTableRow.getBoundingClientRect();
+    taskIconWrapper.style.top = `${newTableRowPositions.top}px`;
+    taskIconWrapper.style.left = newTableRowPositions.left - 40 + "px";
+    taskIconWrapper.style.display = "flex";
+  });
+  taskIconWrapper.addEventListener("mouseover", () => {
+    taskIconWrapper.style.display = "flex";
+  });
+  taskIconWrapper.addEventListener("mouseleave", () => {
+    taskIconWrapper.style.display = "none";
+  });
+  newTableRow.addEventListener("mouseleave", () => {
+    taskIconWrapper.style.display = "none";
+  });
   //checkbox dont need a argument
   createCheckbox();
   //first argument
@@ -219,7 +244,16 @@ function createNewTask(taskTitle, taskDate) {
       newTaskTitle,
       taskTitle
     );
+    if (!newTitleInput.value) {
+      newTitleInput.placeholder = "untitled";
+    }
+    if (newTitleInput.value.trim().length === 0) {
+      newTitleInput.placeholder = "untitled";
+
+      return (newTitleInput.value = "");
+    }
   }
+
   function createDate() {
     const newTaskDate = createTaskProperty("td", "date-wrapper", newTableRow);
 
@@ -232,46 +266,27 @@ function createNewTask(taskTitle, taskDate) {
     );
   }
   function createPriority() {
-    //create a table data and append to row
-    const newTaskPriority = createTaskProperty(
-      "td",
-      "priority-wrapper",
-      newTableRow
-    );
-    //create select element and append to table data above
-    const prioritysWrapper = document.createElement("select");
-    prioritysWrapper.classList.add("todo-priority");
-    newTaskPriority.appendChild(prioritysWrapper);
-    //
+    const priorityWrapper = document.createElement("select");
+    priorityWrapper.classList.add("todo-priority");
 
-    //add options to select
-    const priorityHigh = createTaskProperty(
-      "option",
-      "option-high",
-      prioritysWrapper,
-      "high"
-    );
-    priorityHigh.textContent = "High";
-
-    const priorityMedium = createTaskProperty(
-      "option",
-      "option-medium",
-      prioritysWrapper,
-      "medium"
-    );
-    priorityMedium.textContent = "Medium";
-
-    const priorityLow = createTaskProperty(
-      "option",
-      "option-low",
-      prioritysWrapper,
-      "low"
-    );
-    priorityLow.textContent = "Low";
+    const priorities = ["High", "Medium", "Low"];
+    for (const priority of priorities) {
+      const option = document.createElement("option");
+      option.value = priority.toLowerCase();
+      option.textContent = priority;
+      priorityWrapper.appendChild(option);
+    }
 
     const setTaskPriority = document.querySelector(".change-priority");
-    const priorityValue = setTaskPriority[setTaskPriority.selectedIndex].value;
-    prioritysWrapper.value = priorityValue;
+
+    priorityWrapper.value = setTaskPriority.value;
+
+    if (!priorityWrapper.value) console.log("");
+
+    const newTaskPriority = document.createElement("td");
+    newTaskPriority.classList.add("priority-wrapper");
+    newTaskPriority.appendChild(priorityWrapper);
+    newTableRow.appendChild(newTaskPriority);
   }
 }
 
