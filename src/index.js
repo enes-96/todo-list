@@ -271,10 +271,23 @@ function createNewTask(taskTitle, taskDate) {
     const taskIconWrapper = document.querySelector(".task-icon-wrapper");
     taskIconWrapper.style.display = "none";
 
-    taskIconWrapper.addEventListener("click", () => {
+    taskIconWrapper.addEventListener("click", handleTaskModal);
+    function handleTaskModal() {
       const taskModal = document.querySelector(".task-menu-sm");
-      console.log(taskModal);
-    });
+      const taskModalOverlay = document.querySelector(".task-menu-overlay");
+      const newTableRowPositions = newTableRow.getBoundingClientRect();
+
+      taskModal.style.top = `${newTableRowPositions.top}px`;
+      taskModal.style.left = `${newTableRowPositions.left}px`;
+      taskModal.classList.remove("hidden");
+      if (!taskModal.classList.contains("hidden")) {
+        taskModalOverlay.classList.remove("hidden");
+        taskModalOverlay.addEventListener("click", () => {
+          taskModal.classList.add("hidden");
+          taskModalOverlay.classList.add("hidden");
+        });
+      }
+    }
 
     newTableRow.addEventListener("mouseover", handleButtonPosition);
 
