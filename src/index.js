@@ -48,7 +48,6 @@ function addNewProject() {
     createProject.appendChild(projectIcon);
   })();
 
-  // first create a input and append to item wrapper
   const createProjectNameInput = document.createElement("input");
   createProject.appendChild(createProjectNameInput);
   window.setTimeout(() => createProjectNameInput.focus(), 0);
@@ -58,8 +57,9 @@ function addNewProject() {
   });
 
   const newProjectName = document.createElement("h5");
-  //user enter , transform input to h5
-  createProjectNameInput.addEventListener("keydown", (e) => {
+  createProjectNameInput.addEventListener("keydown", handleInputToTitle);
+
+  function handleInputToTitle(e) {
     if (e.key === "Enter") {
       newProjectName.textContent = e.target.value;
       newProjectName.classList.add("project-item-name");
@@ -69,9 +69,7 @@ function addNewProject() {
         createProject.remove();
       }
     }
-  });
-
-  //edit project
+  }
   function editProject() {
     const projectItems = document.querySelectorAll(".project-item");
     const editBtn = document.querySelector(".edit-user-project");
@@ -96,7 +94,6 @@ function addNewProject() {
   deleteProject();
   editProject();
 }
-
 //right click function
 function addContextMenu(contextItem) {
   const contextContainer = document.querySelector(".context-menu");
@@ -107,11 +104,10 @@ function addContextMenu(contextItem) {
     contextContainer.style.top = `${e.clientY + window.scrollY}px`;
     contextContainer.style.display = "block";
     e.preventDefault();
+    contextContainer.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
   }
-
-  contextContainer.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-  });
 
   document.body.addEventListener("click", () => {
     contextContainer.style.display = "none";
@@ -131,7 +127,6 @@ function deleteProject() {
     });
   });
 }
-//--------------------------------------------------sidebar
 
 function manageItem() {
   //new task button
@@ -172,30 +167,13 @@ function manageItem() {
   deleteTask();
 }
 //--------------------
+
 function createNewTask(taskTitle, taskDate, taskPriorty) {
   const tableRow = document.querySelector("tbody");
   const newTableRow = document.createElement("tr");
-
   tableRow.appendChild(newTableRow);
 
-  const taskIconWrapper = document.querySelector(".task-icon-wrapper");
-  taskIconWrapper.style.display = "none";
-
-  newTableRow.addEventListener("mouseover", () => {
-    const newTableRowPositions = newTableRow.getBoundingClientRect();
-    taskIconWrapper.style.top = `${newTableRowPositions.top}px`;
-    taskIconWrapper.style.left = newTableRowPositions.left - 40 + "px";
-    taskIconWrapper.style.display = "flex";
-  });
-  taskIconWrapper.addEventListener("mouseover", () => {
-    taskIconWrapper.style.display = "flex";
-  });
-  taskIconWrapper.addEventListener("mouseleave", () => {
-    taskIconWrapper.style.display = "none";
-  });
-  newTableRow.addEventListener("mouseleave", () => {
-    taskIconWrapper.style.display = "none";
-  });
+  createEditButton();
   //checkbox dont need a argument
   createCheckbox();
   //first argument
@@ -253,7 +231,6 @@ function createNewTask(taskTitle, taskDate, taskPriorty) {
       return (newTitleInput.value = "");
     }
   }
-
   function createDate() {
     const newTaskDate = createTaskProperty("td", "date-wrapper", newTableRow);
 
@@ -287,6 +264,28 @@ function createNewTask(taskTitle, taskDate, taskPriorty) {
     newTaskPriority.classList.add("priority-wrapper");
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
+  }
+  function createEditButton() {
+    const taskIconWrapper = document.querySelector(".task-icon-wrapper");
+    taskIconWrapper.style.display = "none";
+
+    newTableRow.addEventListener("mouseover", handleButtonPosition);
+
+    handleButtonExistins(taskIconWrapper, "mouseover", taskIconWrapper, "flex");
+    handleButtonExistins(taskIconWrapper, "mouseout", taskIconWrapper, "none");
+    handleButtonExistins(newTableRow, "mouseout", taskIconWrapper, "none");
+
+    function handleButtonPosition() {
+      const newTableRowPositions = newTableRow.getBoundingClientRect();
+      taskIconWrapper.style.top = `${newTableRowPositions.top}px`;
+      taskIconWrapper.style.left = newTableRowPositions.left - 40 + "px";
+      taskIconWrapper.style.display = "flex";
+    }
+    function handleButtonExistins(target, event, parent, displayItem) {
+      target.addEventListener(event, function () {
+        parent.style.display = displayItem;
+      });
+    }
   }
 }
 
