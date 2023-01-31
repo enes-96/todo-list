@@ -143,7 +143,8 @@ function manageItem() {
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = document.querySelector(".change-priority");
-      createNewTask(setTaskName.value, setTasDate.value, setTaskPriority.value);
+      const setTaskComment = document.querySelector(".comment");
+      createNewTask(setTaskName.value, setTasDate.value);
 
       //reset modal
       setTaskName.value = "";
@@ -166,9 +167,8 @@ function manageItem() {
   submitTask();
   deleteTask();
 }
-//--------------------
 
-function createNewTask(taskTitle, taskDate, taskPriorty) {
+function createNewTask(taskTitle, taskDate) {
   const tableRow = document.querySelector("tbody");
   const newTableRow = document.createElement("tr");
   tableRow.appendChild(newTableRow);
@@ -182,6 +182,8 @@ function createNewTask(taskTitle, taskDate, taskPriorty) {
   createDate();
   //third argument
   createPriority();
+  //fourth argument
+  createComment();
 
   function createTaskProperty(
     elementProperty,
@@ -258,16 +260,21 @@ function createNewTask(taskTitle, taskDate, taskPriorty) {
 
     priorityWrapper.value = setTaskPriority.value;
 
-    if (!priorityWrapper.value) console.log("");
-
     const newTaskPriority = document.createElement("td");
     newTaskPriority.classList.add("priority-wrapper");
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
   }
+  function createComment() {}
+
   function createEditButton() {
     const taskIconWrapper = document.querySelector(".task-icon-wrapper");
     taskIconWrapper.style.display = "none";
+
+    taskIconWrapper.addEventListener("click", () => {
+      const taskModal = document.querySelector(".task-menu-sm");
+      console.log(taskModal);
+    });
 
     newTableRow.addEventListener("mouseover", handleButtonPosition);
 
