@@ -295,12 +295,21 @@ function createNewTask(taskTitle, taskDate) {
 
     //i should make a object, when use creates todo it goes there and it is saved
     deleteAddedTask();
+
     function deleteAddedTask() {
       const allTasks = document.querySelectorAll(".new-task");
-      allTasks.forEach((task) => {
-        const removeTaskButton = document.querySelector(".delete-task");
-        task.addEventListener("click", (event) => {});
-        removeTaskButton.addEventListener("click", (e) => {});
+      const removeTaskButton = document.querySelector(".delete-task");
+
+      allTasks.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          item.classList.add("task-selected");
+
+          allTasks.forEach((el) => {
+            if (el !== item) {
+              el.classList.remove("task-selected");
+            }
+          });
+        });
       });
     }
 

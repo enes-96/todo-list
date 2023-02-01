@@ -329,3 +329,6 @@ input[type="checkbox"] {
   z-index: 88;
   background-color: transparent;
 }
+.task-selected {
+  background-color: blue;
+}
