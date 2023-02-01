@@ -303,7 +303,6 @@ input[type="checkbox"] {
   height: 4.2rem;
   display: flex;
   justify-content: center;
-  background-color: red;
 }
 .task-hover-icon {
   stroke: var(--color-grey-dark-3);
@@ -317,7 +316,7 @@ input[type="checkbox"] {
   top: 0;
   border-radius: 11px;
   padding: var(--space-md);
-
+  cursor: pointer;
   background-color: white;
   z-index: 99;
 }

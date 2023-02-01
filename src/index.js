@@ -171,6 +171,7 @@ function manageItem() {
 function createNewTask(taskTitle, taskDate) {
   const tableRow = document.querySelector("tbody");
   const newTableRow = document.createElement("tr");
+  newTableRow.classList.add("new-task");
   tableRow.appendChild(newTableRow);
 
   createEditButton();
@@ -272,22 +273,38 @@ function createNewTask(taskTitle, taskDate) {
     taskIconWrapper.style.display = "none";
 
     taskIconWrapper.addEventListener("click", handleTaskModal);
-    function handleTaskModal() {
-      const taskModal = document.querySelector(".task-menu-sm");
-      const taskModalOverlay = document.querySelector(".task-menu-overlay");
-      const newTableRowPositions = newTableRow.getBoundingClientRect();
 
-      taskModal.style.top = `${newTableRowPositions.top}px`;
-      taskModal.style.left = `${newTableRowPositions.left}px`;
-      taskModal.classList.remove("hidden");
-      if (!taskModal.classList.contains("hidden")) {
+    const taskModalSmall = document.querySelector(".task-menu-sm");
+    const taskModalOverlay = document.querySelector(".task-menu-overlay");
+
+    function handleTaskModal() {
+      const newTableRowPositions = newTableRow.getBoundingClientRect();
+      //&&maybe add selected to closest
+      taskModalSmall.style.top = `${newTableRowPositions.top}px`;
+      taskModalSmall.style.left = `${newTableRowPositions.left}px`;
+      taskModalSmall.classList.remove("hidden");
+      if (!taskModalSmall.classList.contains("hidden")) {
         taskModalOverlay.classList.remove("hidden");
         taskModalOverlay.addEventListener("click", () => {
-          taskModal.classList.add("hidden");
+          taskModalSmall.classList.add("hidden");
           taskModalOverlay.classList.add("hidden");
         });
       }
     }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    //i should make a object, when use creates todo it goes there and it is saved
+    deleteAddedTask();
+    function deleteAddedTask() {
+      const allTasks = document.querySelectorAll(".new-task");
+      allTasks.forEach((task) => {
+        const removeTaskButton = document.querySelector(".delete-task");
+        task.addEventListener("click", (event) => {});
+        removeTaskButton.addEventListener("click", (e) => {});
+      });
+    }
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     newTableRow.addEventListener("mouseover", handleButtonPosition);
 
