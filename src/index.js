@@ -60,6 +60,8 @@ function createNewTask(taskTitle, taskDate) {
   createPriority();
   //fourth argument
   createComment();
+  //delete task
+  deleteAddedTask();
 
   function createTaskProperty(
     elementProperty,
@@ -141,8 +143,50 @@ function createNewTask(taskTitle, taskDate) {
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
   }
-  function createComment() {}
+  function createComment() {
+    const addCommentButton = document.querySelector(".comment-task");
 
+    addCommentButton.addEventListener("click", () => {
+      const selectedTask = document.querySelector(".task-selected");
+      const taskModalSmall = document.querySelector(".task-menu-sm");
+      const commentContainer = document.querySelector(".comment-box");
+      const commentOverlay = document.querySelector(".comment-box-overlay");
+
+      if (selectedTask) {
+        commentContainer.classList.remove("hidden");
+        commentOverlay.classList.remove("hidden");
+        taskModalSmall.classList.add("hidden");
+      }
+
+      commentOverlay.addEventListener("click", () => {
+        commentContainer.classList.add("hidden");
+        commentOverlay.classList.add("hidden");
+      });
+    });
+  }
+  function deleteAddedTask() {
+    const allTasks = document.querySelectorAll(".new-task");
+    const removeTaskButton = document.querySelector(".delete-task");
+    allTasks.forEach((item) => {
+      item.addEventListener("mouseover", (e) => {
+        item.classList.add("task-selected");
+        allTasks.forEach((el) => {
+          if (el !== item) {
+            el.classList.remove("task-selected");
+          }
+        });
+      });
+    });
+
+    removeTaskButton.addEventListener("click", () => {
+      const selectedTask = document.querySelector(".task-selected");
+      if (selectedTask) {
+        const taskModalSmall = document.querySelector(".task-menu-sm");
+        taskModalSmall.classList.add("hidden");
+        selectedTask.remove();
+      }
+    });
+  }
   function createEditButton() {
     const taskIcon = document.querySelector(".task-icon-wrapper");
     taskIcon.style.display = "none";
@@ -167,34 +211,6 @@ function createNewTask(taskTitle, taskDate) {
         });
       }
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    deleteAddedTask();
-
-    function deleteAddedTask() {
-      const allTasks = document.querySelectorAll(".new-task");
-      const removeTaskButton = document.querySelector(".delete-task");
-
-      allTasks.forEach((item) => {
-        item.addEventListener("mouseover", (e) => {
-          item.classList.add("task-selected");
-          allTasks.forEach((el) => {
-            if (el !== item) {
-              el.classList.remove("task-selected");
-            }
-          });
-        });
-      });
-
-      removeTaskButton.addEventListener("click", () => {
-        const selectedTask = document.querySelector(".task-selected");
-        if (selectedTask) {
-          selectedTask.remove();
-        }
-      });
-    }
-
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //dots icon appear when hover
     newTableRow.addEventListener("mouseover", handleButtonPosition);
