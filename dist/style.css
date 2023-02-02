@@ -383,3 +383,30 @@ input[type="checkbox"] {
     width: 40rem;
   }
 }
+.title-icon-wrapper {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+.user-added-comment {
+  width: 200px;
+  border: none;
+  outline: none;
+  padding: var(--space-sm);
+  display: none;
+  animation-duration: 0.6s;
+  animation-name: expend;
+}
+
+@keyframes expend {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 20rem;
+  }
+}
+.th-small {
+  width: 42.59px;
+}
