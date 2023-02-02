@@ -161,6 +161,10 @@ function createNewTask(taskTitle, taskDate) {
       commentOverlay.addEventListener("click", () => {
         commentContainer.classList.add("hidden");
         commentOverlay.classList.add("hidden");
+        const taskTitle = document.querySelector(".title-wrapper");
+        //
+
+        taskTitle.style.backgroundColor = "blue";
       });
     });
   }
