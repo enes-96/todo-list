@@ -270,29 +270,21 @@ function createNewTask(taskTitle, taskDate, taskComment) {
     });
   }
   function dublicateTask() {
-    const allTasks = document.querySelectorAll(".new-task");
-    allTasks.forEach((item) => {
-      item.addEventListener("mouseover", (e) => {
-        item.classList.add("task-selected");
-        allTasks.forEach((el) => {
-          if (el !== item) {
-            el.classList.remove("task-selected");
-          }
-        });
-      });
-    });
     const dublicateTaskButton = document.querySelector(".dublicate-task");
     dublicateTaskButton.addEventListener("click", () => {
       const selectedTask = document.querySelector(".task-selected");
-      if (selectedTask) {
-        const taskModalSmall = document.querySelector(".task-menu-sm");
-        taskModalSmall.classList.add("hidden");
-        //dublicate the selected
-        const dublicatedTask = selectedTask.cloneNode(true);
-        tableRow.appendChild(dublicatedTask);
-        console.log(newTableRow);
-        console.log(dublicatedTask);
-      }
+      const selectedTaskTitle = selectedTask.querySelector(".todo-title").value;
+      const selectedTaskComment = selectedTask.querySelector(
+        ".user-added-comment"
+      ).value;
+
+      const dublicatedTask = createNewTask(
+        selectedTaskTitle,
+        "",
+        selectedTaskComment
+      );
+      const taskModalSmall = document.querySelector(".task-menu-sm");
+      taskModalSmall.classList.add("hidden");
     });
   }
 }
