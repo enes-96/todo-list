@@ -104,6 +104,8 @@ body {
   stroke: var(--color-grey-dark-2);
   height: 18px;
   width: 18px;
+  animation-duration: 0.6s;
+  animation-name: hoverout;
 }
 h5 {
   font-weight: 500;
@@ -277,7 +279,7 @@ th:first-child {
 .delete-user-project,
 .edit-user-project,
 .delete-task,
-.comment-task {
+.dublicate-task {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -343,59 +345,18 @@ input[type="checkbox"] {
   background-color: transparent;
 }
 
-.comment-box {
-  position: absolute;
-  right: 0;
-  top: 20%;
-  height: 20rem;
-  width: 40rem;
-
-  border-radius: 11px 0 0 11px;
-  z-index: 99;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  animation-duration: 0.3s;
-  animation-name: slidein;
-  padding: var(--space-xl);
-}
-.task-comment {
-  border: none;
-  resize: none;
-}
-.task-comment:focus {
-  outline: none;
-}
-.comment-box-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 88;
-  background-color: transparent;
-}
-@keyframes slidein {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 40rem;
-  }
-}
 .title-icon-wrapper {
   justify-content: space-between;
   display: flex;
   align-items: center;
 }
 .user-added-comment {
-  width: 200px;
+  width: 20rem;
   border: none;
   outline: none;
   padding: var(--space-sm);
   display: none;
-  animation-duration: 0.6s;
-  animation-name: expend;
+  animation: expend 1s;
 }
 
 @keyframes expend {
@@ -409,4 +370,9 @@ input[type="checkbox"] {
 }
 .th-small {
   width: 42.59px;
+}
+.wrapperIconComment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

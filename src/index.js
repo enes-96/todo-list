@@ -67,6 +67,8 @@ function createNewTask(taskTitle, taskDate, taskComment) {
   createComment();
   //delete task
   deleteAddedTask();
+  //dublicate task
+  dublicateTask();
 
   function createEditButton() {
     // icon with 3 dots left of the task on hover
@@ -194,27 +196,54 @@ function createNewTask(taskTitle, taskDate, taskComment) {
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
   }
-
   function createComment() {
     const newTaskComment = createTaskProperty(
       "td",
       "comment-wrapper",
       newTableRow
     );
+    const wrapperIconComment = createTaskProperty(
+      "div",
+      "wrapperIconComment",
+      newTaskComment
+    );
     const newComment = createTaskProperty(
       "input",
       "user-added-comment",
-      newTaskComment,
+      wrapperIconComment,
       taskComment
     );
+    const projectIcon = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    function createIcon(appendTo) {
+      const iconPath = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+      iconPath.setAttributeNS(
+        null,
+        "d",
+        "M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
+      );
+      projectIcon.setAttribute("viewBox", "0 0 24 24");
+      projectIcon.appendChild(iconPath);
+      projectIcon.classList.add("item-logo");
+      appendTo.appendChild(projectIcon);
+    }
+    createIcon(wrapperIconComment);
+
     if (newComment.value.trim().length === 0) {
       newComment.value = "";
     }
-    newTaskComment.addEventListener("mouseover", () => {
+    newTaskComment.addEventListener("click", () => {
       newComment.style.display = "block";
+      projectIcon.style.display = "none";
     });
-    newTaskComment.addEventListener("mouseleave", () => {
+    newTaskComment.addEventListener("dblclick", () => {
       newComment.style.display = "none";
+      projectIcon.style.display = "block";
     });
   }
 
@@ -237,6 +266,32 @@ function createNewTask(taskTitle, taskDate, taskComment) {
         const taskModalSmall = document.querySelector(".task-menu-sm");
         taskModalSmall.classList.add("hidden");
         selectedTask.remove();
+      }
+    });
+  }
+  function dublicateTask() {
+    const allTasks = document.querySelectorAll(".new-task");
+    allTasks.forEach((item) => {
+      item.addEventListener("mouseover", (e) => {
+        item.classList.add("task-selected");
+        allTasks.forEach((el) => {
+          if (el !== item) {
+            el.classList.remove("task-selected");
+          }
+        });
+      });
+    });
+    const dublicateTaskButton = document.querySelector(".dublicate-task");
+    dublicateTaskButton.addEventListener("click", () => {
+      const selectedTask = document.querySelector(".task-selected");
+      if (selectedTask) {
+        const taskModalSmall = document.querySelector(".task-menu-sm");
+        taskModalSmall.classList.add("hidden");
+        //dublicate the selected
+        const dublicatedTask = selectedTask.cloneNode(true);
+        tableRow.appendChild(dublicatedTask);
+        console.log(newTableRow);
+        console.log(dublicatedTask);
       }
     });
   }
