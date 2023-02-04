@@ -13,6 +13,7 @@ export default function sidebarJS() {
       item.addEventListener("click", (e) => {
         item.classList.add("selected");
         mainTitle.textContent = item.textContent;
+
         allProjects.forEach((el) => {
           if (el !== item) {
             el.classList.remove("selected");
