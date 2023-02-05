@@ -39,7 +39,7 @@ export default function manageItem() {
   deleteTask();
 }
 
-export function createNewTask(taskTitle, taskDate, taskComment) {
+function createNewTask(taskTitle, taskDate, taskComment) {
   //select the table body
   const tableRow = document.querySelector("tbody");
   //create new table row
