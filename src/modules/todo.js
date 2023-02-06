@@ -38,6 +38,7 @@ export default function manageItem() {
   submitTask();
   deleteTask();
 }
+const todos = [];
 
 function createNewTask(taskTitle, taskDate, taskComment) {
   //select the table body
@@ -241,7 +242,6 @@ function createNewTask(taskTitle, taskDate, taskComment) {
       projectIcon.style.display = "block";
     });
   }
-
   function deleteAddedTask() {
     const allTasks = document.querySelectorAll(".new-task");
     allTasks.forEach((item) => {
