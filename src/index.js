@@ -7,6 +7,7 @@ manageTodos();
 
 function manageTodos() {
   const todos = [];
+  const sidebar = document.querySelector(".sidebar");
 
   //push todo to todos array
   function addTodo(project, todo) {
@@ -19,28 +20,20 @@ function manageTodos() {
   function getTodos(project) {
     return todos.filter((t) => t.project === project);
   }
-  const submitButton = document.querySelector(".task-submit");
-  submitButton.addEventListener("click", () => {
-    const newTask = document.querySelectorAll(".new-task");
-    const sidebar = document.querySelector(".sidebar");
-    const selectedProject = sidebar.querySelector(".selected");
+  //--------------------------------------------------------------
 
-    newTask.forEach((task) => {
+  //all tasks are the todo array
+  const submitTask = document.querySelector(".task-submit");
+  submitTask.addEventListener("click", () => {
+    const selectedProject = sidebar.querySelector(".selected");
+    const addedTask = document.querySelectorAll(".new-task");
+    addedTask.forEach((task) => {
       addTodo(selectedProject.innerText, task);
     });
     console.log(todos);
   });
 
-  const removeTaskButton = document.querySelector(".delete-task");
-  removeTaskButton.addEventListener("click", () => {
-    const selectedTask = document.querySelector(".task-selected");
-    if (selectedTask) {
-      const taskModalSmall = document.querySelector(".task-menu-sm");
-      taskModalSmall.classList.add("hidden");
-      selectedTask.remove();
-    }
-  });
-
+  //-----------------------------------------------------------------------
   //filter todos by category
   const allProjects = document.querySelectorAll(".wrapper-project-item");
   allProjects.forEach((project) => {
@@ -49,5 +42,3 @@ function manageTodos() {
     });
   });
 }
-//all todos are in to-do
-//when use clicks today, filter the todo array and show only the todays
