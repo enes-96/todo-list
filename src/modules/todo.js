@@ -13,6 +13,7 @@ export default function manageItem() {
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = document.querySelector(".change-priority");
       const setTaskComment = taskModal.querySelector(".comment");
+      //
       createNewTask(setTaskName.value, setTasDate.value, setTaskComment.value);
 
       //reset modal

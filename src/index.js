@@ -6,11 +6,10 @@ manageItem();
 manageTodos();
 
 function manageTodos() {
+  //we store here our tasks
   const todos = [];
-  const sidebar = document.querySelector(".sidebar");
   const submitTask = document.querySelector(".task-submit");
 
-  //here you add arguments like date, comment,priority,titel
   function addTodo(project, todo) {
     todos.push({ project, todo });
   }
@@ -19,9 +18,13 @@ function manageTodos() {
   }
 
   submitTask.addEventListener("click", () => {
+    //select project from sidebar
+    const sidebar = document.querySelector(".sidebar");
     const selectedProject = sidebar.querySelector(".selected");
-    const addedTask = document.querySelectorAll(".new-task");
     //here or above idonno you select the arguments for each task
+
+    //add created task to the project
+    const addedTask = document.querySelectorAll(".new-task");
     addedTask.forEach((task) => {
       if (!task.classList.contains("added")) {
         //then add ehre
@@ -30,14 +33,16 @@ function manageTodos() {
       }
     });
   });
-
+  //select project from sidebar
   const allProjects = document.querySelectorAll(".wrapper-project-item");
   allProjects.forEach((project) => {
     project.addEventListener("click", () => {
+      //remove all the tasks from html
       const addedTask = document.querySelectorAll(".new-task");
       addedTask.forEach((task) => {
         task.remove();
       });
+      //filter the items for each project
       getTodos(project.innerText).forEach((todo) => {
         //here create it
         createNewTask(todo);
