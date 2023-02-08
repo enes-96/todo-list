@@ -38,9 +38,8 @@ export default function manageItem() {
   submitTask();
   deleteTask();
 }
-const todos = [];
 
-function createNewTask(taskTitle, taskDate, taskComment) {
+export function createNewTask(taskTitle, taskDate, taskComment) {
   //select the table body
   const tableRow = document.querySelector("tbody");
   //create new table row
@@ -125,7 +124,6 @@ function createNewTask(taskTitle, taskDate, taskComment) {
   }
   function createCheckbox() {
     const newTaskCheck = createTaskProperty("td", "checkbox-td", newTableRow);
-
     const newTaskCheckWrapper = createTaskProperty(
       "div",
       "checkbox-wrapper",
@@ -264,6 +262,7 @@ function createNewTask(taskTitle, taskDate, taskComment) {
       }
     });
   }
+  //do it like the filter
   function dublicateTask() {
     const dublicateTaskButton = document.querySelector(".dublicate-task");
     dublicateTaskButton.addEventListener("click", () => {
