@@ -46,6 +46,8 @@ function manageTodos() {
       getTodos(project.innerText).forEach((todo) => {
         //here create it
         createNewTask(todo);
+        console.clear();
+        console.log(getTodos(project.innerText));
       });
     });
   });
