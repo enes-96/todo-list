@@ -44,10 +44,12 @@ function manageTodos() {
       });
       //filter the items for each project
       getTodos(project.innerText).forEach((todo) => {
-        //here create it
-        createNewTask(todo);
-        console.clear();
-        console.log(getTodos(project.innerText));
+        //here create it tasktitle,taskdate,taskcomment
+        const todoTitle = todo.todo.querySelector(".todo-title");
+        const todoDate = todo.todo.querySelector(".todo-date");
+        const todoComment = todo.todo.querySelector(".user-added-comment");
+        //
+        createNewTask(todoTitle.value, todoDate.value, todoComment.value);
       });
     });
   });
