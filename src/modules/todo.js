@@ -176,12 +176,11 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     );
   }
   //------------------------------------------------------------------------------------
-
   function createPriority() {
+    const priorities = ["High", "Medium", "Low"];
     const priorityWrapper = document.createElement("select");
     priorityWrapper.classList.add("todo-priority");
 
-    const priorities = ["High", "Medium", "Low"];
     for (const priority of priorities) {
       const option = document.createElement("option");
       option.value = priority.toLowerCase();
@@ -189,15 +188,14 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       priorityWrapper.appendChild(option);
     }
 
-    const setTaskPriority = document.querySelector(".change-priority");
-
-    priorityWrapper.value = setTaskPriority.value;
+    priorityWrapper.value = taskPriority;
 
     const newTaskPriority = document.createElement("td");
     newTaskPriority.classList.add("priority-wrapper");
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
   }
+
   //------------------------------------------------------------------------------------
   function createComment() {
     const newTaskComment = createTaskProperty(

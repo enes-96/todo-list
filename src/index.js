@@ -48,8 +48,14 @@ function manageTodos() {
         const todoTitle = todo.todo.querySelector(".todo-title");
         const todoDate = todo.todo.querySelector(".todo-date");
         const todoComment = todo.todo.querySelector(".user-added-comment");
+        const todoPriority = todo.todo.querySelector(".todo-priority");
         //
-        createNewTask(todoTitle.value, todoDate.value, todoComment.value);
+        createNewTask(
+          todoTitle.value,
+          todoDate.value,
+          todoComment.value,
+          todoPriority.value
+        );
       });
     });
   });
