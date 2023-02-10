@@ -1,14 +1,16 @@
 export default function manageItem() {
   //new task button
-  document.body.querySelector(".add-new-task").addEventListener("click", () => {
+  const newTaskButton = document.querySelector(".add-new-task");
+
+  newTaskButton.addEventListener("click", () => {
     toggleModal();
   });
 
   const taskModal = document.querySelector(".modal");
 
   function submitTask() {
-    //submit button
-    taskModal.querySelector(".task-submit").addEventListener("click", () => {
+    const taskSubmitButton = taskModal.querySelector(".task-submit");
+    taskSubmitButton.addEventListener("click", () => {
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = document.querySelector(".change-priority");
@@ -46,29 +48,18 @@ export default function manageItem() {
 }
 
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
-  //select the table body
-  const tableRow = document.querySelector("tbody");
-  //create new table row
-  const newTableRow = document.createElement("tr");
-  //every createt task gets the clas new-task
-  newTableRow.classList.add("new-task");
-  //append the tasl to the table body
-  tableRow.appendChild(newTableRow);
+  const tableBody = document.querySelector("tbody");
+  const newRow = document.createElement("tr");
+  newRow.classList.add("new-task");
+  tableBody.appendChild(newRow);
 
   createEditButton();
-  //checkbox dont need a argument
   createCheckbox();
-  //first argument
   createTitle();
-  //second argument
   createDate();
-  //third argument
   createPriority();
-  //fourth argument
   createComment();
-  //delete task
   deleteAddedTask();
-  //dublicate task
   dublicateTask();
 
   function createEditButton() {
@@ -77,13 +68,13 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     taskIcon.style.display = "none";
 
     //dots icon appear when hover,and hover out when mouseout
-    newTableRow.addEventListener("mouseover", handleButtonPosition);
+    newRow.addEventListener("mouseover", handleButtonPosition);
     handleButtonExistins(taskIcon, "mouseover", taskIcon, "flex");
     handleButtonExistins(taskIcon, "mouseout", taskIcon, "none");
-    handleButtonExistins(newTableRow, "mouseout", taskIcon, "none");
+    handleButtonExistins(newRow, "mouseout", taskIcon, "none");
 
     function handleButtonPosition() {
-      const newTableRowPositions = newTableRow.getBoundingClientRect();
+      const newTableRowPositions = newRow.getBoundingClientRect();
       taskIcon.style.top = `${newTableRowPositions.top}px`;
       taskIcon.style.left = newTableRowPositions.left - 40 + "px";
       taskIcon.style.display = "flex";
@@ -98,7 +89,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
 
     function handleTaskModal() {
       //find the position of the hovered row
-      const newTableRowPositions = newTableRow.getBoundingClientRect();
+      const newTableRowPositions = newRow.getBoundingClientRect();
       //modal container
       const taskModalSmall = document.querySelector(".task-menu-sm");
       const taskModalOverlay = document.querySelector(".task-menu-overlay");
@@ -129,7 +120,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     return newItem;
   }
   function createCheckbox() {
-    const newTaskCheck = createTaskProperty("td", "checkbox-td", newTableRow);
+    const newTaskCheck = createTaskProperty("td", "checkbox-td", newRow);
     const newTaskCheckWrapper = createTaskProperty(
       "div",
       "checkbox-wrapper",
@@ -144,7 +135,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     );
   }
   function createTitle() {
-    const newTaskTitle = createTaskProperty("td", "title-wrapper", newTableRow);
+    const newTaskTitle = createTaskProperty("td", "title-wrapper", newRow);
     const newTaskTitleWrapper = createTaskProperty(
       "div",
       "title-icon-wrapper",
@@ -165,7 +156,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     }
   }
   function createDate() {
-    const newTaskDate = createTaskProperty("td", "date-wrapper", newTableRow);
+    const newTaskDate = createTaskProperty("td", "date-wrapper", newRow);
 
     const taskDateInput = createTaskProperty(
       "input",
@@ -193,16 +184,12 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     const newTaskPriority = document.createElement("td");
     newTaskPriority.classList.add("priority-wrapper");
     newTaskPriority.appendChild(priorityWrapper);
-    newTableRow.appendChild(newTaskPriority);
+    newRow.appendChild(newTaskPriority);
   }
 
   //------------------------------------------------------------------------------------
   function createComment() {
-    const newTaskComment = createTaskProperty(
-      "td",
-      "comment-wrapper",
-      newTableRow
-    );
+    const newTaskComment = createTaskProperty("td", "comment-wrapper", newRow);
     const wrapperIconComment = createTaskProperty(
       "div",
       "wrapperIconComment",
