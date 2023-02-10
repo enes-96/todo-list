@@ -14,7 +14,12 @@ export default function manageItem() {
       const setTaskPriority = document.querySelector(".change-priority");
       const setTaskComment = taskModal.querySelector(".comment");
       //
-      createNewTask(setTaskName.value, setTasDate.value, setTaskComment.value);
+      createNewTask(
+        setTaskName.value,
+        setTasDate.value,
+        setTaskComment.value,
+        setTaskPriority.value
+      );
 
       //reset modal
       setTaskName.value = "";
@@ -40,7 +45,7 @@ export default function manageItem() {
   deleteTask();
 }
 
-export function createNewTask(taskTitle, taskDate, taskComment) {
+export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   //select the table body
   const tableRow = document.querySelector("tbody");
   //create new table row
@@ -170,6 +175,8 @@ export function createNewTask(taskTitle, taskDate, taskComment) {
       "date"
     );
   }
+  //------------------------------------------------------------------------------------
+
   function createPriority() {
     const priorityWrapper = document.createElement("select");
     priorityWrapper.classList.add("todo-priority");
@@ -191,6 +198,7 @@ export function createNewTask(taskTitle, taskDate, taskComment) {
     newTaskPriority.appendChild(priorityWrapper);
     newTableRow.appendChild(newTaskPriority);
   }
+  //------------------------------------------------------------------------------------
   function createComment() {
     const newTaskComment = createTaskProperty(
       "td",
@@ -241,6 +249,7 @@ export function createNewTask(taskTitle, taskDate, taskComment) {
       projectIcon.style.display = "block";
     });
   }
+  //_______________________________________________________
   function deleteAddedTask() {
     const allTasks = document.querySelectorAll(".new-task");
     allTasks.forEach((item) => {
@@ -263,7 +272,6 @@ export function createNewTask(taskTitle, taskDate, taskComment) {
       }
     });
   }
-  //do it like the filter
   function dublicateTask() {
     const dublicateTaskButton = document.querySelector(".dublicate-task");
     dublicateTaskButton.addEventListener("click", () => {
