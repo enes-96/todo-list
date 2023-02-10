@@ -62,42 +62,52 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   deleteAddedTask();
   dublicateTask();
 
+  function createTaskProperty(
+    elementProperty,
+    className,
+    appendTo,
+    value,
+    type
+  ) {
+    const newItem = document.createElement(elementProperty);
+    newItem.classList.add(className);
+    newItem.value = value;
+    newItem.type = type;
+    appendTo.appendChild(newItem);
+    return newItem;
+  }
+
   function createEditButton() {
-    // icon with 3 dots left of the task on hover
-    const taskIcon = document.querySelector(".task-icon-wrapper");
-    taskIcon.style.display = "none";
+    const taskIconWrapper = document.querySelector(".task-icon-wrapper");
+    const taskModalSmall = document.querySelector(".task-menu-sm");
+    const taskModalOverlay = document.querySelector(".task-menu-overlay");
 
-    //dots icon appear when hover,and hover out when mouseout
-    newRow.addEventListener("mouseover", handleButtonPosition);
-    handleButtonExistins(taskIcon, "mouseover", taskIcon, "flex");
-    handleButtonExistins(taskIcon, "mouseout", taskIcon, "none");
-    handleButtonExistins(newRow, "mouseout", taskIcon, "none");
+    taskIconWrapper.style.display = "none";
 
-    function handleButtonPosition() {
-      const newTableRowPositions = newRow.getBoundingClientRect();
-      taskIcon.style.top = `${newTableRowPositions.top}px`;
-      taskIcon.style.left = newTableRowPositions.left - 40 + "px";
-      taskIcon.style.display = "flex";
+    newRow.addEventListener("mouseover", handleButtonDisplay);
+    newRow.addEventListener("mouseout", () => {
+      taskIconWrapper.style.display = "none";
+    });
+    taskIconWrapper.addEventListener("mouseover", () => {
+      taskIconWrapper.style.display = "flex";
+    });
+    taskIconWrapper.addEventListener("mouseout", () => {
+      taskIconWrapper.style.display = "none";
+    });
+    taskIconWrapper.addEventListener("click", handleModalDisplay);
+
+    function handleButtonDisplay() {
+      const newRowPosition = newRow.getBoundingClientRect();
+      taskIconWrapper.style.top = `${newRowPosition.top}px`;
+      taskIconWrapper.style.left = `${newRowPosition.left - 40}px`;
+      taskIconWrapper.style.display = "flex";
     }
-    function handleButtonExistins(target, event, parent, displayItem) {
-      target.addEventListener(event, function () {
-        parent.style.display = displayItem;
-      });
-    }
-    //open modal if click the dots
-    taskIcon.addEventListener("click", handleTaskModal);
 
-    function handleTaskModal() {
-      //find the position of the hovered row
-      const newTableRowPositions = newRow.getBoundingClientRect();
-      //modal container
-      const taskModalSmall = document.querySelector(".task-menu-sm");
-      const taskModalOverlay = document.querySelector(".task-menu-overlay");
-      //set position right of the dots icon
-      taskModalSmall.style.top = `${newTableRowPositions.top}px`;
-      taskModalSmall.style.left = `${newTableRowPositions.left}px`;
+    function handleModalDisplay() {
+      const newRowPosition = newRow.getBoundingClientRect();
+      taskModalSmall.style.top = `${newRowPosition.top}px`;
+      taskModalSmall.style.left = `${newRowPosition.left}px`;
       taskModalSmall.classList.remove("hidden");
-      //click overlay to hide
       taskModalOverlay.classList.remove("hidden");
       taskModalOverlay.addEventListener("click", () => {
         taskModalSmall.classList.add("hidden");
@@ -105,35 +115,22 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       });
     }
   }
-  function createTaskProperty(
-    elementProperty,
-    elementClass,
-    appendTo,
-    elementValue,
-    elementType
-  ) {
-    const newItem = document.createElement(elementProperty);
-    newItem.classList.add(elementClass);
-    appendTo.appendChild(newItem);
-    newItem.value = elementValue;
-    newItem.type = elementType;
-    return newItem;
-  }
   function createCheckbox() {
-    const newTaskCheck = createTaskProperty("td", "checkbox-td", newRow);
-    const newTaskCheckWrapper = createTaskProperty(
+    const checkboxTd = createTaskProperty("td", "checkbox-td", newRow);
+    const checkboxWrapper = createTaskProperty(
       "div",
       "checkbox-wrapper",
-      newTaskCheck
+      checkboxTd
     );
-    const taskCheckBox = createTaskProperty(
+    createTaskProperty(
       "input",
       "task-checkbox",
-      newTaskCheckWrapper,
+      checkboxWrapper,
       "",
       "checkbox"
     );
   }
+
   function createTitle() {
     const newTaskTitle = createTaskProperty("td", "title-wrapper", newRow);
     const newTaskTitleWrapper = createTaskProperty(
@@ -166,7 +163,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       "date"
     );
   }
-  //------------------------------------------------------------------------------------
   function createPriority() {
     const priorities = ["High", "Medium", "Low"];
     const priorityWrapper = document.createElement("select");
@@ -187,7 +183,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     newRow.appendChild(newTaskPriority);
   }
 
-  //------------------------------------------------------------------------------------
   function createComment() {
     const newTaskComment = createTaskProperty("td", "comment-wrapper", newRow);
     const wrapperIconComment = createTaskProperty(
