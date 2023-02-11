@@ -182,7 +182,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     newTaskPriority.appendChild(priorityWrapper);
     newRow.appendChild(newTaskPriority);
   }
-
   function createComment() {
     const newTaskComment = createTaskProperty("td", "comment-wrapper", newRow);
     const wrapperIconComment = createTaskProperty(
@@ -229,7 +228,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       projectIcon.style.display = "block";
     });
   }
-  //_______________________________________________________
   function deleteAddedTask() {
     const allTasks = document.querySelectorAll(".new-task");
     allTasks.forEach((item) => {

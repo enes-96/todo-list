@@ -6,9 +6,10 @@ manageItem();
 manageTodos();
 
 function manageTodos() {
-  //we store here our tasks
   const todos = [];
+
   const submitTask = document.querySelector(".task-submit");
+  submitTask.addEventListener("click", addNewTask);
 
   function addTodo(project, todo) {
     todos.push({ project, todo });
@@ -16,25 +17,22 @@ function manageTodos() {
   function getTodos(project) {
     return todos.filter((t) => t.project === project);
   }
+  function addNewTask() {
+    const selectedProject = document.querySelector(".sidebar .selected");
+    const newTasks = document.querySelectorAll(".new-task");
 
-  submitTask.addEventListener("click", () => {
-    //select project from sidebar
-    const sidebar = document.querySelector(".sidebar");
-    const selectedProject = sidebar.querySelector(".selected");
-    //here or above idonno you select the arguments for each task
+    for (let i = 0; i < newTasks.length; i++) {
+      const newTask = newTasks[i];
 
-    //add created task to the project
-    const addedTask = document.querySelectorAll(".new-task");
-    addedTask.forEach((task) => {
-      if (!task.classList.contains("added")) {
-        //then add ehre
-        addTodo(selectedProject.innerText, task);
-        task.classList.add("added");
+      if (!newTask.classList.contains("added")) {
+        addTodo(selectedProject.textContent, newTask);
+        newTask.classList.add("added");
       }
-    });
-  });
-  //select project from sidebar
+    }
+  }
+
   const allProjects = document.querySelectorAll(".wrapper-project-item");
+
   allProjects.forEach((project) => {
     project.addEventListener("click", () => {
       //remove all the tasks from html
@@ -57,8 +55,11 @@ function manageTodos() {
           todoPriority.value
         );
       });
+      console.clear();
+      console.log(getTodos(project.innerText));
     });
   });
 }
+
 //i need to select the priority of foreach todo
 // when i change somehting on each todo, and change categories it resets
