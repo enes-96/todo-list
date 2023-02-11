@@ -7,8 +7,8 @@ manageTodos();
 
 function manageTodos() {
   const todos = [];
-
   const submitTask = document.querySelector(".task-submit");
+
   submitTask.addEventListener("click", addNewTask);
 
   function addTodo(project, todo) {
@@ -19,30 +19,24 @@ function manageTodos() {
   }
   function addNewTask() {
     const selectedProject = document.querySelector(".sidebar .selected");
-    const newTasks = document.querySelectorAll(".new-task");
 
-    for (let i = 0; i < newTasks.length; i++) {
-      const newTask = newTasks[i];
-
-      if (!newTask.classList.contains("added")) {
-        addTodo(selectedProject.textContent, newTask);
-        newTask.classList.add("added");
+    const addedTask = document.querySelectorAll(".new-task");
+    addedTask.forEach((task) => {
+      if (!task.classList.contains("added")) {
+        addTodo(selectedProject.innerText, task);
+        task.classList.add("added");
       }
-    }
+    });
   }
 
   const allProjects = document.querySelectorAll(".wrapper-project-item");
-
   allProjects.forEach((project) => {
     project.addEventListener("click", () => {
-      //remove all the tasks from html
       const addedTask = document.querySelectorAll(".new-task");
       addedTask.forEach((task) => {
         task.remove();
       });
-      //filter the items for each project
       getTodos(project.innerText).forEach((todo) => {
-        //here create it tasktitle,taskdate,taskcomment
         const todoTitle = todo.todo.querySelector(".todo-title");
         const todoDate = todo.todo.querySelector(".todo-date");
         const todoComment = todo.todo.querySelector(".user-added-comment");
@@ -55,8 +49,6 @@ function manageTodos() {
           todoPriority.value
         );
       });
-      console.clear();
-      console.log(getTodos(project.innerText));
     });
   });
 }
