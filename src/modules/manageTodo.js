@@ -52,5 +52,6 @@ export function manageTodos() {
         });
       });
     });
+    allProjects = document.querySelectorAll(".wrapper-project-item");
   }
 }
