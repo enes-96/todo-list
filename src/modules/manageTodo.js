@@ -1,5 +1,7 @@
 import { createNewTask } from "./todo.js";
 
+let allProjects = document.querySelectorAll(".wrapper-project-item");
+
 export function manageTodos() {
   const todos = [];
   const submitTask = document.querySelector(".task-submit");
@@ -27,10 +29,13 @@ export function manageTodos() {
       }
     });
   }
-
+  const newProjetButton = document.getElementById("btnNewProject");
+  newProjetButton.addEventListener("click", () => {
+    allProjects = document.querySelectorAll(".wrapper-project-item");
+    console.log(allProjects);
+    displayTodos();
+  });
   function displayTodos() {
-    let allProjects = document.querySelectorAll(".wrapper-project-item");
-
     allProjects.forEach((project) => {
       project.addEventListener("click", () => {
         const addedTask = document.querySelectorAll(".new-task");
@@ -52,6 +57,5 @@ export function manageTodos() {
         });
       });
     });
-    allProjects = document.querySelectorAll(".wrapper-project-item");
   }
 }

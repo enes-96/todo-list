@@ -96,6 +96,7 @@ export default function sidebarJS() {
     deleteProject();
     editProject();
   }
+
   //right click function
   function addContextMenu(contextItem) {
     const contextContainer = document.querySelector(".context-menu");
