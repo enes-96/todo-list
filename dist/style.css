@@ -1,8 +1,9 @@
 :root {
-  --color-grey-light-1: #faf9f9;
-  --color-grey-light-2: #f4f2f2;
-  --color-grey-light-3: #f0eeee;
-  --color-grey-light-4: #e7e7e7;
+  --color-grey-light-1: hsl(0, 9%, 99%);
+  --color-grey-light-2: hsl(0, 8%, 97%);
+  --color-grey-light-3: hsl(0, 6%, 95%);
+  --color-grey-light-35: hsl(0, 0%, 94%);
+  --color-grey-light-4: hsl(0, 0%, 92%);
 
   --color-grey-dark-1: #333;
   --color-grey-dark-2: #777;
@@ -96,7 +97,7 @@ body {
 }
 .wrapper-project-item:hover,
 .wrapper-sidebar-footer:hover {
-  background-color: var(--color-grey-light-4);
+  background-color: var(--color-grey-light-35);
 }
 .item-logo {
   fill: none;
@@ -183,6 +184,8 @@ th:first-child {
 /*when use selects a list*/
 .selected {
   background-color: var(--color-grey-light-4);
+  border-left: 4px solid black;
+  transition: all 0.1s;
 }
 .hidden {
   display: none;
