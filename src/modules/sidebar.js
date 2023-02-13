@@ -1,10 +1,11 @@
 export default function sidebarJS() {
   const mainSection = document.getElementById("main");
-  document.getElementById("btnNewProject").addEventListener("click", () => {
+  const newProjectButton = document.getElementById("btnNewProject");
+
+  newProjectButton.addEventListener("click", () => {
     addNewProject();
     selectProject();
   });
-  //sidebar select
   function selectProject() {
     const allProjects = document.querySelectorAll(".wrapper-project-item");
     const mainTitle = document.getElementById("mainTitle");
@@ -53,12 +54,14 @@ export default function sidebarJS() {
     })();
 
     const createProjectNameInput = document.createElement("input");
+    createProjectNameInput.classList.add("projectNameInput");
     createProject.appendChild(createProjectNameInput);
     window.setTimeout(() => createProjectNameInput.focus(), 0);
 
     const newProjectName = document.createElement("h5");
+
     createProjectNameInput.addEventListener("keydown", handleInputToTitle);
-    createProjectNameInput.addEventListener("focusout", () => {
+    createProjectNameInput.addEventListener("blur", () => {
       newProjectName.textContent = createProjectNameInput.value;
       newProjectName.classList.add("project-item-name");
       createProject.replaceChild(newProjectName, createProjectNameInput);
@@ -66,6 +69,10 @@ export default function sidebarJS() {
         createProject.remove();
         mainSection.classList.add("hidden");
       }
+    });
+    //prevent this
+    createProjectNameInput.addEventListener("click", () => {
+      createProjectNameInput.classList.remove("selected");
     });
 
     function handleInputToTitle(e) {
@@ -101,14 +108,12 @@ export default function sidebarJS() {
         window.setTimeout(() => createProjectNameInput.focus(), 0);
       }
     }
-
     //append item to his wrapper
     userProjectsContainer.appendChild(createProject);
     addContextMenu(createProject);
     deleteProject();
     editProject();
   }
-
   //right click function
   function addContextMenu(contextItem) {
     const contextContainer = document.querySelector(".context-menu");

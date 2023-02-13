@@ -1,9 +1,9 @@
 :root {
-  --color-grey-light-1: hsl(0, 9%, 99%);
+  --color-grey-light-1: #fdfcfc;
   --color-grey-light-2: hsl(0, 8%, 97%);
   --color-grey-light-3: hsl(0, 6%, 95%);
   --color-grey-light-35: hsl(0, 0%, 94%);
-  --color-grey-light-4: hsl(0, 0%, 92%);
+  --color-grey-light-4: #ebebeb;
 
   --color-grey-dark-1: #333;
   --color-grey-dark-2: #777;
@@ -378,4 +378,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.projectNameInput {
+  pointer-events: none;
 }
