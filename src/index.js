@@ -6,5 +6,4 @@ sidebarJS();
 manageItem();
 manageTodos();
 
-//i need to select the priority of foreach todo
 // when i change somehting on each todo, and change categories it resets

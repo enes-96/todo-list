@@ -1,4 +1,5 @@
 export default function sidebarJS() {
+  const mainSection = document.getElementById("main");
   document.getElementById("btnNewProject").addEventListener("click", () => {
     addNewProject();
     selectProject();
@@ -13,6 +14,7 @@ export default function sidebarJS() {
       item.addEventListener("click", (e) => {
         item.classList.add("selected");
         mainTitle.textContent = item.textContent;
+        mainSection.classList.remove("hidden");
 
         allProjects.forEach((el) => {
           if (el !== item) {
@@ -54,10 +56,6 @@ export default function sidebarJS() {
     createProject.appendChild(createProjectNameInput);
     window.setTimeout(() => createProjectNameInput.focus(), 0);
 
-    createProjectNameInput.addEventListener("input", (e) => {
-      mainTitle.textContent = e.target.value;
-    });
-
     const newProjectName = document.createElement("h5");
     createProjectNameInput.addEventListener("keydown", handleInputToTitle);
 
@@ -67,8 +65,10 @@ export default function sidebarJS() {
         newProjectName.classList.add("project-item-name");
         createProject.replaceChild(newProjectName, createProjectNameInput);
         //if input is empty remove item
+        //** */
         if (!newProjectName.innerText) {
           createProject.remove();
+          mainSection.classList.add("hidden");
         }
       }
     }
@@ -79,6 +79,9 @@ export default function sidebarJS() {
       editBtn.addEventListener("click", () => {
         projectItems.forEach((item) => {
           if (item.classList.contains("selected")) {
+            createProjectNameInput.addEventListener("input", (e) => {
+              mainTitle.textContent = e.target.value;
+            });
             editItem(item);
           }
         });
@@ -100,16 +103,19 @@ export default function sidebarJS() {
   //right click function
   function addContextMenu(contextItem) {
     const contextContainer = document.querySelector(".context-menu");
+
     contextItem.addEventListener("contextmenu", handleContextMenu);
 
     function handleContextMenu(e) {
-      contextContainer.style.left = `${e.clientX + window.scrollX}px`;
-      contextContainer.style.top = `${e.clientY + window.scrollY}px`;
-      contextContainer.style.display = "block";
-      e.preventDefault();
-      contextContainer.addEventListener("contextmenu", (e) => {
+      if (contextItem.classList.contains("selected")) {
+        contextContainer.style.left = `${e.clientX + window.scrollX}px`;
+        contextContainer.style.top = `${e.clientY + window.scrollY}px`;
+        contextContainer.style.display = "block";
         e.preventDefault();
-      });
+        contextContainer.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+        });
+      }
     }
 
     document.body.addEventListener("click", () => {
@@ -121,11 +127,12 @@ export default function sidebarJS() {
     const projectItems = document.querySelectorAll(".project-item");
     const deleteBtn = document.querySelector(".delete-user-project");
     //if project is selected,then it can be deletet
+    //** */
     deleteBtn.addEventListener("click", () => {
       projectItems.forEach((item) => {
         if (item.classList.contains("selected")) {
           item.remove();
-          mainTitle.innerHtml = "";
+          mainSection.classList.add("hidden");
         }
       });
     });

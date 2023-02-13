@@ -32,7 +32,6 @@ export function manageTodos() {
   const newProjetButton = document.getElementById("btnNewProject");
   newProjetButton.addEventListener("click", () => {
     allProjects = document.querySelectorAll(".wrapper-project-item");
-    console.log(allProjects);
     displayTodos();
   });
   function displayTodos() {
