@@ -58,6 +58,9 @@ export default function sidebarJS() {
 
     const newProjectName = document.createElement("h5");
     createProjectNameInput.addEventListener("keydown", handleInputToTitle);
+    createProjectNameInput.addEventListener("focusout", () => {
+      createProject.remove();
+    });
 
     function handleInputToTitle(e) {
       if (e.key === "Enter") {
