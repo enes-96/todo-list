@@ -31,6 +31,8 @@ export default function sidebarJS() {
 
     //item wrapper (icon and name) and syling
     const createProject = document.createElement("div");
+    createProject.style.backgroundColor = "red";
+
     createProject.classList.add("wrapper-project-item", "project-item");
 
     (function createIcon() {
@@ -71,9 +73,6 @@ export default function sidebarJS() {
       }
     });
     //prevent this
-    createProjectNameInput.addEventListener("click", () => {
-      createProjectNameInput.classList.remove("selected");
-    });
 
     function handleInputToTitle(e) {
       if (e.key === "Enter") {
