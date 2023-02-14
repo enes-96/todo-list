@@ -1,7 +1,5 @@
 export default function manageItem() {
-  //new task button
   const newTaskButton = document.querySelector(".add-new-task");
-
   newTaskButton.addEventListener("click", () => {
     toggleModal();
   });
@@ -31,18 +29,15 @@ export default function manageItem() {
       toggleModal();
     });
   }
-
   function deleteTask() {
     const taskDeleteButton = taskModal.querySelector(".task-delete");
     taskDeleteButton.addEventListener("click", toggleModal);
   }
-
   function toggleModal() {
     const overlay = document.querySelector(".overlay");
     taskModal.classList.toggle("hidden");
     overlay.classList.toggle("hidden");
   }
-
   submitTask();
   deleteTask();
 }
@@ -76,7 +71,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     appendTo.appendChild(newItem);
     return newItem;
   }
-
   function createEditButton() {
     const taskIconWrapper = document.querySelector(".task-icon-wrapper");
     const taskModalSmall = document.querySelector(".task-menu-sm");
@@ -130,7 +124,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       "checkbox"
     );
   }
-
   function createTitle() {
     const newTaskTitle = createTaskProperty("td", "title-wrapper", newRow);
     const newTaskTitleWrapper = createTaskProperty(

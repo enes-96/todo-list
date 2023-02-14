@@ -1,14 +1,17 @@
 import { createNewTask } from "./todo.js";
 
-let allProjects = document.querySelectorAll(".wrapper-project-item");
-
 export function manageTodos() {
+  let allProjects = document.querySelectorAll(".wrapper-project-item");
   const todos = [];
   const submitTask = document.querySelector(".task-submit");
+  const newProjetButton = document.getElementById("btnNewProject");
 
   submitTask.addEventListener("click", addNewTask);
 
-  displayTodos();
+  newProjetButton.addEventListener("click", () => {
+    allProjects = document.querySelectorAll(".wrapper-project-item");
+    displayTodos();
+  });
 
   function addTodo(project, todo) {
     todos.push({ project, todo });
@@ -20,8 +23,8 @@ export function manageTodos() {
 
   function addNewTask() {
     const selectedProject = document.querySelector(".sidebar .selected");
-
     const addedTask = document.querySelectorAll(".new-task");
+
     addedTask.forEach((task) => {
       if (!task.classList.contains("added")) {
         addTodo(selectedProject.innerText, task);
@@ -29,11 +32,7 @@ export function manageTodos() {
       }
     });
   }
-  const newProjetButton = document.getElementById("btnNewProject");
-  newProjetButton.addEventListener("click", () => {
-    allProjects = document.querySelectorAll(".wrapper-project-item");
-    displayTodos();
-  });
+
   function displayTodos() {
     allProjects.forEach((project) => {
       project.addEventListener("click", () => {
@@ -41,6 +40,7 @@ export function manageTodos() {
         addedTask.forEach((task) => {
           task.remove();
         });
+
         getTodos(project.innerText).forEach((todo) => {
           const todoTitle = todo.todo.querySelector(".todo-title");
           const todoDate = todo.todo.querySelector(".todo-date");
@@ -57,4 +57,5 @@ export function manageTodos() {
       });
     });
   }
+  displayTodos();
 }

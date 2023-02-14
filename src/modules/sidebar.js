@@ -2,17 +2,19 @@ export default function sidebarJS() {
   const mainSection = document.getElementById("main");
   const newProjectButton = document.getElementById("btnNewProject");
 
+  selectProject();
+
   newProjectButton.addEventListener("click", () => {
     addNewProject();
     selectProject();
   });
+
   function selectProject() {
     const allProjects = document.querySelectorAll(".wrapper-project-item");
     const mainTitle = document.getElementById("mainTitle");
 
-    //loop over all projects and listen for click
     allProjects.forEach((item) => {
-      item.addEventListener("click", (e) => {
+      item.addEventListener("click", () => {
         item.classList.add("selected");
         mainTitle.textContent = item.textContent;
         mainSection.classList.remove("hidden");
@@ -25,14 +27,11 @@ export default function sidebarJS() {
       });
     });
   }
-  //sidebar
   function addNewProject() {
     const userProjectsContainer = document.querySelector(".wrp-user-projct");
 
-    //item wrapper (icon and name) and syling
     const createProject = document.createElement("div");
-    createProject.style.backgroundColor = "red";
-
+    createProject.style.cursor = "default";
     createProject.classList.add("wrapper-project-item", "project-item");
 
     (function createIcon() {
@@ -56,25 +55,17 @@ export default function sidebarJS() {
     })();
 
     const createProjectNameInput = document.createElement("input");
+
     createProjectNameInput.classList.add("projectNameInput");
     createProject.appendChild(createProjectNameInput);
     window.setTimeout(() => createProjectNameInput.focus(), 0);
 
     const newProjectName = document.createElement("h5");
 
-    createProjectNameInput.addEventListener("keydown", handleInputToTitle);
-    createProjectNameInput.addEventListener("blur", () => {
-      newProjectName.textContent = createProjectNameInput.value;
-      newProjectName.classList.add("project-item-name");
-      createProject.replaceChild(newProjectName, createProjectNameInput);
-      if (!newProjectName.innerText) {
-        createProject.remove();
-        mainSection.classList.add("hidden");
-      }
-    });
-    //prevent this
+    createProjectNameInput.addEventListener("keydown", handleKeydown);
+    createProjectNameInput.addEventListener("blur", handleBlur);
 
-    function handleInputToTitle(e) {
+    function handleKeydown(e) {
       if (e.key === "Enter") {
         newProjectName.textContent = e.target.value;
         newProjectName.classList.add("project-item-name");
@@ -85,6 +76,15 @@ export default function sidebarJS() {
           createProject.remove();
           mainSection.classList.add("hidden");
         }
+      }
+    }
+    function handleBlur() {
+      newProjectName.textContent = createProjectNameInput.value;
+      newProjectName.classList.add("project-item-name");
+      createProject.replaceChild(newProjectName, createProjectNameInput);
+      if (!newProjectName.innerText) {
+        createProject.remove();
+        mainSection.classList.add("hidden");
       }
     }
     function editProject() {
@@ -107,17 +107,24 @@ export default function sidebarJS() {
         window.setTimeout(() => createProjectNameInput.focus(), 0);
       }
     }
-    //append item to his wrapper
+
     userProjectsContainer.appendChild(createProject);
     addContextMenu(createProject);
+
     deleteProject();
     editProject();
   }
-  //right click function
   function addContextMenu(contextItem) {
     const contextContainer = document.querySelector(".context-menu");
+    contextContainer.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
 
     contextItem.addEventListener("contextmenu", handleContextMenu);
+
+    document.body.addEventListener("click", () => {
+      contextContainer.style.display = "none";
+    });
 
     function handleContextMenu(e) {
       if (contextItem.classList.contains("selected")) {
@@ -125,17 +132,9 @@ export default function sidebarJS() {
         contextContainer.style.top = `${e.clientY + window.scrollY}px`;
         contextContainer.style.display = "block";
         e.preventDefault();
-        contextContainer.addEventListener("contextmenu", (e) => {
-          e.preventDefault();
-        });
       }
     }
-
-    document.body.addEventListener("click", () => {
-      contextContainer.style.display = "none";
-    });
   }
-  //delete from context menu
   function deleteProject() {
     const projectItems = document.querySelectorAll(".project-item");
     const deleteBtn = document.querySelector(".delete-user-project");
@@ -150,5 +149,4 @@ export default function sidebarJS() {
       });
     });
   }
-  selectProject();
 }
