@@ -1,3 +1,4 @@
+import todos from "./manageTodo.js";
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
   newTaskButton.addEventListener("click", () => {
@@ -233,15 +234,22 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         });
       });
     });
+    //****************************
     const removeTaskButton = document.querySelector(".delete-task");
     removeTaskButton.addEventListener("click", () => {
-      const selectedTask = document.querySelector(".task-selected");
+      let selectedTask = document.querySelector(".task-selected");
+      selectedTask.setAttribute("id", "targetTask");
       if (selectedTask) {
         const taskModalSmall = document.querySelector(".task-menu-sm");
         taskModalSmall.classList.add("hidden");
         selectedTask.remove();
+        //+++++++++++++++++++++++++++
+
+        //+++++++++++++++++++++++++++
+        console.log(todos);
       }
     });
+    //****************************
   }
   function dublicateTask() {
     const dublicateTaskButton = document.querySelector(".dublicate-task");

@@ -1,8 +1,10 @@
 import { createNewTask } from "./todo.js";
 
+const todos = [];
+export default todos;
+
 export function manageTodos() {
   let allProjects = document.querySelectorAll(".wrapper-project-item");
-  const todos = [];
   const submitTask = document.querySelector(".task-submit");
   const newProjetButton = document.getElementById("btnNewProject");
 
