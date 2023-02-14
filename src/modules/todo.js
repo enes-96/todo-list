@@ -239,14 +239,15 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     removeTaskButton.addEventListener("click", () => {
       let selectedTask = document.querySelector(".task-selected");
       selectedTask.setAttribute("id", "targetTask");
+
       if (selectedTask) {
         const taskModalSmall = document.querySelector(".task-menu-sm");
         taskModalSmall.classList.add("hidden");
         selectedTask.remove();
         //+++++++++++++++++++++++++++
+        const targetTask = todos.find((x) => x.id === selectedTask.id);
 
-        //+++++++++++++++++++++++++++
-        console.log(todos);
+        console.log(todos, targetTask);
       }
     });
     //****************************
