@@ -315,7 +315,7 @@ input[type="checkbox"] {
   left: 340px;
   height: 4.2rem;
   width: 2.4rem;
-  cursor: pointer;
+  cursor: grab;
   animation-duration: 0.6s;
   animation-name: hoverout;
 }

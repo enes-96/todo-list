@@ -56,6 +56,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   createPriority();
   createComment();
   deleteAddedTask();
+  dublicateTask();
 
   function createTaskProperty(
     elementProperty,
@@ -73,6 +74,8 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   }
   function createEditButton() {
     const taskIconWrapper = document.querySelector(".task-icon-wrapper");
+    const taskModalSmall = document.querySelector(".task-menu-sm");
+    const taskModalOverlay = document.querySelector(".task-menu-overlay");
 
     taskIconWrapper.style.display = "none";
 
@@ -86,12 +89,25 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     taskIconWrapper.addEventListener("mouseout", () => {
       taskIconWrapper.style.display = "none";
     });
+    taskIconWrapper.addEventListener("click", handleModalDisplay);
 
     function handleButtonDisplay() {
       const newRowPosition = newRow.getBoundingClientRect();
       taskIconWrapper.style.top = `${newRowPosition.top}px`;
       taskIconWrapper.style.left = `${newRowPosition.left - 40}px`;
       taskIconWrapper.style.display = "flex";
+    }
+
+    function handleModalDisplay() {
+      const newRowPosition = newRow.getBoundingClientRect();
+      taskModalSmall.style.top = `${newRowPosition.top}px`;
+      taskModalSmall.style.left = `${newRowPosition.left}px`;
+      taskModalSmall.classList.remove("hidden");
+      taskModalOverlay.classList.remove("hidden");
+      taskModalOverlay.addEventListener("click", () => {
+        taskModalSmall.classList.add("hidden");
+        taskModalOverlay.classList.add("hidden");
+      });
     }
   }
   function createCheckbox() {
@@ -219,13 +235,14 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       });
     });
     //****************************
-    const removeTaskButton = document.querySelector(".task-hover-icon");
+    const removeTaskButton = document.querySelector(".delete-task");
     removeTaskButton.addEventListener("click", () => {
       let selectedTask = document.querySelector(".task-selected");
       selectedTask.setAttribute("id", "targetTask");
 
-      //change
       if (selectedTask) {
+        const taskModalSmall = document.querySelector(".task-menu-sm");
+        taskModalSmall.classList.add("hidden");
         selectedTask.remove();
         //+++++++++++++++++++++++++++
         const targetTask = todos.find((x) => x.id === selectedTask.id);
@@ -233,6 +250,24 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         console.log(todos, targetTask);
       }
     });
-    //***************************
+    //****************************
+  }
+  function dublicateTask() {
+    const dublicateTaskButton = document.querySelector(".dublicate-task");
+    dublicateTaskButton.addEventListener("click", () => {
+      const selectedTask = document.querySelector(".task-selected");
+      const selectedTaskTitle = selectedTask.querySelector(".todo-title").value;
+      const selectedTaskComment = selectedTask.querySelector(
+        ".user-added-comment"
+      ).value;
+
+      const dublicatedTask = createNewTask(
+        selectedTaskTitle,
+        "",
+        selectedTaskComment
+      );
+      const taskModalSmall = document.querySelector(".task-menu-sm");
+      taskModalSmall.classList.add("hidden");
+    });
   }
 }
