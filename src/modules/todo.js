@@ -56,7 +56,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   createPriority();
   createComment();
   deleteAddedTask();
-  dublicateTask();
+  pinTask();
 
   function createTaskProperty(
     elementProperty,
@@ -252,20 +252,21 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     });
     //****************************
   }
-  function dublicateTask() {
-    const dublicateTaskButton = document.querySelector(".dublicate-task");
-    dublicateTaskButton.addEventListener("click", () => {
+  function pinTask() {
+    const pinTaskButton = document.querySelector(".dublicate-task");
+    pinTaskButton.addEventListener("click", () => {
       const selectedTask = document.querySelector(".task-selected");
-      const selectedTaskTitle = selectedTask.querySelector(".todo-title").value;
-      const selectedTaskComment = selectedTask.querySelector(
-        ".user-added-comment"
-      ).value;
 
-      const dublicatedTask = createNewTask(
-        selectedTaskTitle,
-        "",
-        selectedTaskComment
-      );
+      selectedTask.style.borderLeft = "2px solid red";
+      selectedTask.classList.add("pinned");
+
+      pinTaskButton.addEventListener("click", () => {
+        if (selectedTask.classList.contains("pinned")) {
+          selectedTask.style.borderLeft = "none";
+          selectedTask.classList.remove("pinned");
+        }
+      });
+
       const taskModalSmall = document.querySelector(".task-menu-sm");
       taskModalSmall.classList.add("hidden");
     });
