@@ -227,46 +227,38 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     allTasks.forEach((item) => {
       item.addEventListener("mouseover", (e) => {
         item.classList.add("task-selected");
+        item.setAttribute("id", "taskToRemove");
         allTasks.forEach((el) => {
           if (el !== item) {
-            el.classList.remove("task-selected");
+            el.removeAttribute("id");
           }
         });
       });
     });
-    //****************************
+
     const removeTaskButton = document.querySelector(".delete-task");
     removeTaskButton.addEventListener("click", () => {
-      let selectedTask = document.querySelector(".task-selected");
-      selectedTask.setAttribute("id", "targetTask");
+      let selectedTask = document.getElementById("taskToRemove");
 
       if (selectedTask) {
         const taskModalSmall = document.querySelector(".task-menu-sm");
         taskModalSmall.classList.add("hidden");
-        selectedTask.remove();
-        //+++++++++++++++++++++++++++
-        const targetTask = todos.find((x) => x.id === selectedTask.id);
 
-        console.log(todos, targetTask);
+        const itemToRemove = todos.findIndex(
+          (todo) => todo.todo.id === selectedTask.id
+        );
+        todos.splice(itemToRemove, 1);
+        selectedTask.remove();
+        selectedTask.removeAttribute("id");
       }
+      console.log(todos);
     });
-    //****************************
   }
   function pinTask() {
     const pinTaskButton = document.querySelector(".dublicate-task");
     pinTaskButton.addEventListener("click", () => {
       const selectedTask = document.querySelector(".task-selected");
-
-      selectedTask.style.borderLeft = "2px solid red";
       selectedTask.classList.add("pinned");
-
-      pinTaskButton.addEventListener("click", () => {
-        if (selectedTask.classList.contains("pinned")) {
-          selectedTask.style.borderLeft = "none";
-          selectedTask.classList.remove("pinned");
-        }
-      });
-
       const taskModalSmall = document.querySelector(".task-menu-sm");
       taskModalSmall.classList.add("hidden");
     });

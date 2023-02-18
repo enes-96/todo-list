@@ -167,6 +167,9 @@ th:first-child {
   justify-content: center;
   align-items: center;
 }
+input[type="checkbox"] {
+  cursor: pointer;
+}
 .todo-title,
 .todo-date,
 .todo-priority {
@@ -381,4 +384,7 @@ input[type="checkbox"] {
 }
 .projectNameInput {
   pointer-events: none;
+}
+.pinned {
+  border-left: 2px solid rgb(0, 0, 0);
 }
