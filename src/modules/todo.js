@@ -231,6 +231,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         allTasks.forEach((el) => {
           if (el !== item) {
             el.removeAttribute("id");
+            el.classList.remove("task-selected");
           }
         });
       });
@@ -257,10 +258,21 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   function pinTask() {
     const pinTaskButton = document.querySelector(".dublicate-task");
     pinTaskButton.addEventListener("click", () => {
-      const selectedTask = document.querySelector(".task-selected");
-      selectedTask.classList.add("pinned");
-      const taskModalSmall = document.querySelector(".task-menu-sm");
-      taskModalSmall.classList.add("hidden");
+      const taskSelected = document.querySelector(".task-selected");
+
+      if (taskSelected) {
+        taskSelected.classList.remove("task-selected");
+
+        const pinnedTodo = todos.find(
+          (todo) => todo.todo.id === taskSelected.id
+        );
+        if (pinnedTodo) {
+          pinnedTodo.pinned = true;
+          pinnedTodo.todo.classList.add("pinned");
+        }
+      }
+      const taskMenuSmall = document.querySelector(".task-menu-sm");
+      taskMenuSmall.classList.add("hidden");
     });
   }
 }

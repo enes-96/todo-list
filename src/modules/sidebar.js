@@ -12,7 +12,6 @@ export default function sidebarJS() {
   function selectProject() {
     const allProjects = document.querySelectorAll(".wrapper-project-item");
     const mainTitle = document.getElementById("mainTitle");
-
     allProjects.forEach((item) => {
       item.addEventListener("click", () => {
         item.classList.add("selected");

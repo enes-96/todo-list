@@ -1,5 +1,4 @@
 import { createNewTask } from "./todo.js";
-
 const todos = [];
 export default todos;
 
@@ -15,8 +14,8 @@ export function manageTodos() {
     displayTodos();
   });
 
-  function addTodo(project, todo) {
-    todos.push({ project, todo });
+  function addTodo(project, todo, pinned = false) {
+    todos.push({ project, todo, pinned });
   }
 
   function getTodos(project) {
@@ -39,15 +38,16 @@ export function manageTodos() {
     allProjects.forEach((project) => {
       project.addEventListener("click", () => {
         const addedTask = document.querySelectorAll(".new-task");
-        addedTask.forEach((task) => {
-          task.remove();
-        });
+        addedTask.forEach((task) => task.remove());
 
         getTodos(project.innerText).forEach((todo) => {
           const todoTitle = todo.todo.querySelector(".todo-title");
           const todoDate = todo.todo.querySelector(".todo-date");
           const todoComment = todo.todo.querySelector(".user-added-comment");
           const todoPriority = todo.todo.querySelector(".todo-priority");
+          const isPinned = todo.pinned;
+
+          //
           //
           createNewTask(
             todoTitle.value,
@@ -55,6 +55,18 @@ export function manageTodos() {
             todoComment.value,
             todoPriority.value
           );
+
+          if (isPinned) {
+            const pinnedTasks = todos.filter((task) => task.pinned);
+
+            pinnedTasks.forEach((task) => {
+              task.todo.classList.remove("task-selected");
+              task.todo.classList.remove("pinned");
+              task.todo.classList.add("pin");
+
+              console.log(task);
+            });
+          }
         });
       });
     });
