@@ -60,11 +60,7 @@ export function manageTodos() {
             const pinnedTasks = todos.filter((task) => task.pinned);
 
             pinnedTasks.forEach((task) => {
-              task.todo.classList.remove("task-selected");
-              task.todo.classList.remove("pinned");
-              task.todo.classList.add("pin");
-
-              console.log(task);
+              task.todo.classList.add("pinned");
             });
           }
         });

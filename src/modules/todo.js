@@ -268,7 +268,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         );
         if (pinnedTodo) {
           pinnedTodo.pinned = true;
-          pinnedTodo.todo.classList.add("pinned");
+          pinnedTodo.style.backgroundColor = "red";
         }
       }
       const taskMenuSmall = document.querySelector(".task-menu-sm");
