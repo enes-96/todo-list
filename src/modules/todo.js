@@ -49,13 +49,11 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   newRow.classList.add("new-task");
   tableBody.appendChild(newRow);
 
-  createEditButton();
   createCheckbox();
   createTitle();
   createDate();
   createPriority();
   createComment();
-  deleteAddedTask();
 
   function createTaskProperty(
     elementProperty,
@@ -71,44 +69,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     appendTo.appendChild(newItem);
     return newItem;
   }
-  function createEditButton() {
-    const taskIconWrapper = document.querySelector(".task-icon-wrapper");
-    const taskModalSmall = document.querySelector(".task-menu-sm");
-    const taskModalOverlay = document.querySelector(".task-menu-overlay");
 
-    taskIconWrapper.style.display = "none";
-
-    newRow.addEventListener("mouseover", handleButtonDisplay);
-    newRow.addEventListener("mouseout", () => {
-      taskIconWrapper.style.display = "none";
-    });
-    taskIconWrapper.addEventListener("mouseover", () => {
-      taskIconWrapper.style.display = "flex";
-    });
-    taskIconWrapper.addEventListener("mouseout", () => {
-      taskIconWrapper.style.display = "none";
-    });
-    taskIconWrapper.addEventListener("click", handleModalDisplay);
-
-    function handleButtonDisplay() {
-      const newRowPosition = newRow.getBoundingClientRect();
-      taskIconWrapper.style.top = `${newRowPosition.top}px`;
-      taskIconWrapper.style.left = `${newRowPosition.left - 40}px`;
-      taskIconWrapper.style.display = "flex";
-    }
-
-    function handleModalDisplay() {
-      const newRowPosition = newRow.getBoundingClientRect();
-      taskModalSmall.style.top = `${newRowPosition.top}px`;
-      taskModalSmall.style.left = `${newRowPosition.left}px`;
-      taskModalSmall.classList.remove("hidden");
-      taskModalOverlay.classList.remove("hidden");
-      taskModalOverlay.addEventListener("click", () => {
-        taskModalSmall.classList.add("hidden");
-        taskModalOverlay.classList.add("hidden");
-      });
-    }
-  }
   function createCheckbox() {
     const checkboxTd = createTaskProperty("td", "checkbox-td", newRow);
     const checkboxWrapper = createTaskProperty(
@@ -219,40 +180,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     newTaskComment.addEventListener("dblclick", () => {
       newComment.style.display = "none";
       projectIcon.style.display = "block";
-    });
-  }
-  function deleteAddedTask() {
-    const allTasks = document.querySelectorAll(".new-task");
-
-    allTasks.forEach((item) => {
-      item.addEventListener("mouseover", (e) => {
-        item.classList.add("task-selected");
-        item.setAttribute("id", "taskToRemove");
-        allTasks.forEach((el) => {
-          if (el !== item) {
-            el.removeAttribute("id");
-            el.classList.remove("task-selected");
-          }
-        });
-      });
-    });
-    const removeTaskButton = document.querySelector(".delete-task");
-
-    removeTaskButton.addEventListener("click", () => {
-      let selectedTask = document.getElementById("taskToRemove");
-
-      if (selectedTask) {
-        const taskModalSmall = document.querySelector(".task-menu-sm");
-        taskModalSmall.classList.add("hidden");
-
-        const itemToRemove = todos.findIndex(
-          (todo) => todo.todo.id === selectedTask.id
-        );
-        todos.splice(itemToRemove, 1);
-        selectedTask.remove();
-        selectedTask.removeAttribute("id");
-        console.log(itemToRemove, todos);
-      }
     });
   }
 }

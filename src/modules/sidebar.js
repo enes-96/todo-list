@@ -13,6 +13,7 @@ export default function sidebarJS() {
     const allProjects = document.querySelectorAll(".wrapper-project-item");
     const mainTitle = document.getElementById("mainTitle");
     allProjects.forEach((item) => {
+      item.style.cursor = "pointer";
       item.addEventListener("click", () => {
         item.classList.add("selected");
         mainTitle.textContent = item.textContent;
