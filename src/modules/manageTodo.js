@@ -13,8 +13,8 @@ export function manageTodos() {
     displayTodos();
   });
 
-  function addTodo(project, todo, pinned = false) {
-    todos.push({ project, todo, pinned });
+  function addTodo(project, todo) {
+    todos.push({ project, todo });
   }
 
   function getTodos(project) {
@@ -44,9 +44,9 @@ export function manageTodos() {
           const todoDate = todo.todo.querySelector(".todo-date");
           const todoComment = todo.todo.querySelector(".user-added-comment");
           const todoPriority = todo.todo.querySelector(".todo-priority");
-          const isPinned = todo.pinned;
 
           //
+
           //
           createNewTask(
             todoTitle.value,

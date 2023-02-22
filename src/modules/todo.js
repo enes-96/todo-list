@@ -56,7 +56,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   createPriority();
   createComment();
   deleteAddedTask();
-  pinTask();
 
   function createTaskProperty(
     elementProperty,
@@ -224,6 +223,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   }
   function deleteAddedTask() {
     const allTasks = document.querySelectorAll(".new-task");
+
     allTasks.forEach((item) => {
       item.addEventListener("mouseover", (e) => {
         item.classList.add("task-selected");
@@ -236,8 +236,8 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         });
       });
     });
-
     const removeTaskButton = document.querySelector(".delete-task");
+
     removeTaskButton.addEventListener("click", () => {
       let selectedTask = document.getElementById("taskToRemove");
 
@@ -251,25 +251,8 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         todos.splice(itemToRemove, 1);
         selectedTask.remove();
         selectedTask.removeAttribute("id");
+        console.log(itemToRemove, todos);
       }
-      console.log(todos);
-    });
-  }
-  //pinned task not working
-  function pinTask() {
-    const pinTaskButton = document.querySelector(".dublicate-task");
-    pinTaskButton.addEventListener("click", () => {
-      const taskSelected = document.querySelector(".task-selected");
-
-      if (taskSelected) {
-        // Find the index of the selected task in the todos array
-
-        console.log(index);
-      }
-
-      const taskMenuSmall = document.querySelector(".task-menu-sm");
-      taskMenuSmall.classList.add("hidden");
-      console.log(todos);
     });
   }
 }
