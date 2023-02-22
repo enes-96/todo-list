@@ -1,6 +1,5 @@
 import { createNewTask } from "./todo.js";
-const todos = [];
-export default todos;
+export const todos = [];
 
 export function manageTodos() {
   let allProjects = document.querySelectorAll(".wrapper-project-item");
@@ -55,14 +54,6 @@ export function manageTodos() {
             todoComment.value,
             todoPriority.value
           );
-
-          if (isPinned) {
-            const pinnedTasks = todos.filter((task) => task.pinned);
-
-            pinnedTasks.forEach((task) => {
-              task.todo.classList.add("pinned");
-            });
-          }
         });
       });
     });

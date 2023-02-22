@@ -385,9 +385,3 @@ input[type="checkbox"] {
 .projectNameInput {
   pointer-events: none;
 }
-.pinned {
-  border-left: 2px solid rgb(0, 0, 0);
-}
-.pin {
-  background-color: red;
-}

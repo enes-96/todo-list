@@ -1,4 +1,4 @@
-import todos from "./manageTodo.js";
+import { todos } from "./manageTodo.js";
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
   newTaskButton.addEventListener("click", () => {
@@ -255,24 +255,21 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       console.log(todos);
     });
   }
+  //pinned task not working
   function pinTask() {
     const pinTaskButton = document.querySelector(".dublicate-task");
     pinTaskButton.addEventListener("click", () => {
       const taskSelected = document.querySelector(".task-selected");
 
       if (taskSelected) {
-        taskSelected.classList.remove("task-selected");
+        // Find the index of the selected task in the todos array
 
-        const pinnedTodo = todos.find(
-          (todo) => todo.todo.id === taskSelected.id
-        );
-        if (pinnedTodo) {
-          pinnedTodo.pinned = true;
-          pinnedTodo.style.backgroundColor = "red";
-        }
+        console.log(index);
       }
+
       const taskMenuSmall = document.querySelector(".task-menu-sm");
       taskMenuSmall.classList.add("hidden");
+      console.log(todos);
     });
   }
 }
