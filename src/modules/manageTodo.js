@@ -24,12 +24,11 @@ export function manageTodos() {
   function addNewTask() {
     const selectedProject = document.querySelector(".sidebar .selected");
     const addedTask = document.querySelectorAll(".new-task");
-
     addedTask.forEach((task) => {
       if (!task.classList.contains("added")) {
         addTodo(taskCounter++, selectedProject.innerText, task);
         task.classList.add("added");
-      }
+      } else return;
     });
   }
 
