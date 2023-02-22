@@ -125,6 +125,8 @@ main {
   width: calc(100% - 22rem);
   color: var(--color-grey-dark-1);
   font-size: var(--text-base);
+  display: flex;
+  flex-direction: column;
 }
 h1 {
   font-size: var(--text-3xl);
@@ -142,7 +144,6 @@ h1 {
 
 table {
   border-collapse: collapse;
-  width: 100%;
 }
 td,
 th {
@@ -154,8 +155,11 @@ th {
 th {
   font-weight: 400;
 }
-th:first-child {
+.th-small {
   width: 6rem;
+}
+.th-medium {
+  width: 24rem;
 }
 .icon-wrapper {
   display: flex;
@@ -341,4 +345,10 @@ input[type="checkbox"] {
 }
 .projectNameInput {
   pointer-events: none;
+}
+.delete-button {
+  background-color: transparent;
+  border: none;
+  font-size: var(--text-md);
+  font-weight: lighter;
 }

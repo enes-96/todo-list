@@ -1,4 +1,5 @@
 import { todos } from "./manageTodo.js";
+import { taskCounter } from "./manageTodo.js";
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
   newTaskButton.addEventListener("click", () => {
@@ -46,6 +47,7 @@ export default function manageItem() {
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
+  newRow.setAttribute("id", taskCounter);
   newRow.classList.add("new-task");
   tableBody.appendChild(newRow);
 
@@ -54,6 +56,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   createDate();
   createPriority();
   createComment();
+  createDelete();
 
   function createTaskProperty(
     elementProperty,
@@ -69,7 +72,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     appendTo.appendChild(newItem);
     return newItem;
   }
-
   function createCheckbox() {
     const checkboxTd = createTaskProperty("td", "checkbox-td", newRow);
     const checkboxWrapper = createTaskProperty(
@@ -180,6 +182,32 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     newTaskComment.addEventListener("dblclick", () => {
       newComment.style.display = "none";
       projectIcon.style.display = "block";
+    });
+  }
+  function createDelete() {
+    const buttonTd = createTaskProperty("td", "delete-td", newRow);
+    const buttonWrapper = createTaskProperty(
+      "div",
+      "delete-button-wrapper",
+      buttonTd
+    );
+    const deleteButton = createTaskProperty(
+      "button",
+      "delete-button",
+      buttonWrapper,
+      "",
+      ""
+    );
+    deleteButton.textContent = "✕";
+    deleteButton.style.cursor = "pointer";
+
+    buttonWrapper.addEventListener("click", () => {
+      const taskToRemove = todos.findIndex(
+        (todo) => newRow.id === todo.todo.id
+      );
+      todos.splice(taskToRemove, 1);
+      buttonTd.parentNode.remove();
+      console.log(todos);
     });
   }
 }

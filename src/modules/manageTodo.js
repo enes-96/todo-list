@@ -1,6 +1,6 @@
 import { createNewTask } from "./todo.js";
 export const todos = [];
-
+export let taskCounter = 1;
 export function manageTodos() {
   let allProjects = document.querySelectorAll(".wrapper-project-item");
   const submitTask = document.querySelector(".task-submit");
@@ -13,8 +13,8 @@ export function manageTodos() {
     displayTodos();
   });
 
-  function addTodo(project, todo) {
-    todos.push({ project, todo });
+  function addTodo(id, project, todo) {
+    todos.push({ id, project, todo });
   }
 
   function getTodos(project) {
@@ -27,7 +27,7 @@ export function manageTodos() {
 
     addedTask.forEach((task) => {
       if (!task.classList.contains("added")) {
-        addTodo(selectedProject.innerText, task);
+        addTodo(taskCounter++, selectedProject.innerText, task);
         task.classList.add("added");
       }
     });
