@@ -16,6 +16,12 @@ export default function manageItem() {
       const setTaskPriority = document.querySelector(".change-priority");
       const setTaskComment = taskModal.querySelector(".comment");
       //
+      if (!setTaskName.value) {
+        return alert("dont forget title");
+      }
+      if (!setTaskPriority.value) {
+        return alert("priority???");
+      }
       createNewTask(
         setTaskName.value,
         setTasDate.value,
@@ -95,17 +101,14 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       newTaskTitle
     );
     const newTitleInput = createTaskProperty(
-      "input",
+      "h4",
       "todo-title",
-      newTaskTitleWrapper,
-      taskTitle
+      newTaskTitleWrapper
     );
-    if (!newTitleInput.value) {
-      newTitleInput.placeholder = "untitled";
-    }
-    if (newTitleInput.value.trim().length === 0) {
-      newTitleInput.placeholder = "untitled";
-      return (newTitleInput.value = "");
+    newTitleInput.textContent = taskTitle;
+    if (!newTitleInput.textContent) {
+      newTitleInput.textContent = "untitled";
+      newTitleInput.style.color = "#c4c4c4";
     }
   }
   function createDate() {
@@ -118,12 +121,13 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       taskDate,
       "date"
     );
+    taskDateInput.style.pointerEvents = "none";
   }
   function createPriority() {
     const priorities = ["High", "Medium", "Low"];
     const priorityWrapper = document.createElement("select");
     priorityWrapper.classList.add("todo-priority");
-
+    priorityWrapper.style.pointerEvents = "none";
     for (const priority of priorities) {
       const option = document.createElement("option");
       option.value = priority.toLowerCase();
@@ -151,6 +155,8 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       wrapperIconComment,
       taskComment
     );
+    newComment.style.pointerEvents = "none";
+
     const projectIcon = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "svg"
@@ -186,6 +192,16 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   }
   function createDelete() {
     const buttonTd = createTaskProperty("td", "delete-td", newRow);
+    buttonTd.classList.add("del-button");
+
+    newRow.addEventListener("mouseenter", () => {
+      buttonTd.classList.remove("del-button");
+      buttonTd.classList.add("del-show");
+    });
+    newRow.addEventListener("mouseleave", () => {
+      buttonTd.classList.add("del-button");
+      buttonTd.classList.remove("del-show");
+    });
     const buttonWrapper = createTaskProperty(
       "div",
       "delete-button-wrapper",
@@ -207,7 +223,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       );
       todos.splice(taskToRemove, 1);
       buttonTd.parentNode.remove();
-      console.log(todos);
     });
   }
+  //
 }

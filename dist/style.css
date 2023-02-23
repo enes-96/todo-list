@@ -1,7 +1,7 @@
 :root {
   --color-grey-light-1: #fdfcfc;
   --color-grey-light-2: hsl(0, 8%, 97%);
-  --color-grey-light-3: hsl(0, 6%, 95%);
+  --color-grey-light-3: #f3f1f1;
   --color-grey-light-35: hsl(0, 0%, 94%);
   --color-grey-light-4: #ebebeb;
 
@@ -150,6 +150,9 @@ th {
   text-align: left;
   padding: 0.8rem;
   border: var(--line);
+  border-left: none;
+  border-right: none;
+
   font-weight: 500;
 }
 th {
@@ -179,13 +182,17 @@ input[type="checkbox"] {
 .todo-priority {
   border: none;
   outline: none;
-  cursor: pointer;
   font-size: var(--text-md);
+  width: 100%;
+  font-weight: 400;
 }
 .todo-priority {
   border: none;
   outline: none;
   background-color: transparent;
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
 }
 
 /*when use selects a list*/
@@ -310,6 +317,12 @@ input[type="checkbox"] {
 .todo-title::placeholder {
   color: var(--color-grey-light-4);
 }
+.todo-date::-webkit-inner-spin-button,
+.todo-date::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
 /********************************************/
 
 .title-icon-wrapper {
@@ -350,5 +363,25 @@ input[type="checkbox"] {
   background-color: transparent;
   border: none;
   font-size: var(--text-md);
-  font-weight: lighter;
+  font-weight: 200;
+  color: var(--color-grey-dark-2);
+}
+.del-button {
+  position: relative;
+  display: none;
+}
+.del-show {
+  position: relative;
+  animation: slideButton 0.3s ease;
+}
+@keyframes slideButton {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.comment-wrapper {
+  cursor: pointer;
 }
