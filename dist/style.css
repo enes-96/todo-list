@@ -371,6 +371,10 @@ input[type="checkbox"] {
   display: none;
 }
 .del-show {
+  width: 4rem;
+  height: 4.29rem;
+  display: grid;
+  place-items: center;
   position: relative;
   animation: slideButton 0.3s ease;
 }

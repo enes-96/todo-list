@@ -1,5 +1,6 @@
 import { todos } from "./manageTodo.js";
 import { taskCounter } from "./manageTodo.js";
+
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
   newTaskButton.addEventListener("click", () => {
@@ -49,7 +50,6 @@ export default function manageItem() {
   submitTask();
   deleteTask();
 }
-
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
@@ -62,6 +62,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   createDate();
   createPriority();
   createComment();
+  createEdit();
   createDelete();
 
   function createTaskProperty(
@@ -178,6 +179,11 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     }
     createIcon(wrapperIconComment);
 
+    if (!newComment.value) {
+      newComment.value = "NO COMMENTO";
+      newComment.style.color = "#c4c4c4";
+    }
+
     if (newComment.value.trim().length === 0) {
       newComment.value = "";
     }
@@ -210,9 +216,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     const deleteButton = createTaskProperty(
       "button",
       "delete-button",
-      buttonWrapper,
-      "",
-      ""
+      buttonWrapper
     );
     deleteButton.textContent = "✕";
     deleteButton.style.cursor = "pointer";
@@ -226,4 +230,29 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     });
   }
   //
+  function createEdit() {
+    const editTd = createTaskProperty("td", "edit-td", newRow);
+    const editButtonWrapper = createTaskProperty(
+      "div",
+      "edit-button-wrapper",
+      editTd
+    );
+    const editButton = createTaskProperty(
+      "h5",
+      "edit-button",
+      editButtonWrapper
+    );
+    editButton.textContent = "edit";
+    editButton.style.cursor = "pointer";
+
+    const taskModal = document.querySelector(".modal");
+    function toggleModal() {
+      const overlay = document.querySelector(".overlay");
+      taskModal.classList.toggle("hidden");
+      overlay.classList.toggle("hidden");
+    }
+    editButton.addEventListener("click", () => {
+      toggleModal();
+    });
+  }
 }
