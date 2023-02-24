@@ -6,12 +6,13 @@ export default function manageItem() {
   newTaskButton.addEventListener("click", () => {
     toggleModal();
   });
-
   const taskModal = document.querySelector(".modal");
 
   function submitTask() {
     const taskSubmitButton = taskModal.querySelector(".task-submit");
     taskSubmitButton.addEventListener("click", () => {
+      const editTaskButton = taskModal.querySelector(".task-edit");
+      editTaskButton.classList.add("hidden");
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = document.querySelector(".change-priority");
@@ -231,7 +232,16 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   }
   //
   function createEdit() {
+    const taskModal = document.querySelector(".modal");
     const editTd = createTaskProperty("td", "edit-td", newRow);
+    editTd.classList.add("hidden");
+
+    newRow.addEventListener("mouseenter", () => {
+      editTd.classList.remove("hidden");
+    });
+    newRow.addEventListener("mouseleave", () => {
+      editTd.classList.add("hidden");
+    });
     const editButtonWrapper = createTaskProperty(
       "div",
       "edit-button-wrapper",
@@ -245,14 +255,32 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     editButton.textContent = "edit";
     editButton.style.cursor = "pointer";
 
-    const taskModal = document.querySelector(".modal");
-    function toggleModal() {
+    editButton.addEventListener("click", () => {
+      editModal();
+    });
+
+    function editModal() {
+      const editTaskButton = taskModal.querySelector(".task-edit");
+      editTaskButton.classList.remove("hidden");
+
+      editTaskButton.addEventListener("click", () => {
+        console.log(newRow);
+      });
+
+      const setTaskName = taskModal.querySelector(".change-title");
+      const setTasDate = taskModal.querySelector(".change-date");
+      const setTaskPriority = document.querySelector(".change-priority");
+      const setTaskComment = taskModal.querySelector(".comment");
+
+      setTaskName.value = taskTitle;
+      setTasDate.value = taskDate.value;
+      setTaskPriority.value = taskPriority;
+      setTaskComment.value = taskComment;
+
+      //
       const overlay = document.querySelector(".overlay");
       taskModal.classList.toggle("hidden");
       overlay.classList.toggle("hidden");
     }
-    editButton.addEventListener("click", () => {
-      toggleModal();
-    });
   }
 }

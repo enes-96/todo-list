@@ -275,7 +275,8 @@ input[type="checkbox"] {
   justify-content: space-around;
 }
 .task-delete,
-.task-submit {
+.task-submit,
+.task-edit {
   cursor: pointer;
   padding: 6px 0px;
   width: 37.5%;
