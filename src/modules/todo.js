@@ -1,18 +1,17 @@
 import { todos } from "./manageTodo.js";
-import { taskCounter } from "./manageTodo.js";
 
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
+
   newTaskButton.addEventListener("click", () => {
     toggleModal();
   });
+
   const taskModal = document.querySelector(".modal");
 
   function submitTask() {
     const taskSubmitButton = taskModal.querySelector(".task-submit");
     taskSubmitButton.addEventListener("click", () => {
-      const editTaskButton = taskModal.querySelector(".task-edit");
-      editTaskButton.classList.add("hidden");
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
       const setTaskPriority = document.querySelector(".change-priority");
@@ -51,10 +50,15 @@ export default function manageItem() {
   submitTask();
   deleteTask();
 }
+
+let taskCounter = 1;
+
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
   newRow.setAttribute("id", taskCounter);
+  taskCounter++;
+  console.log(newRow);
   newRow.classList.add("new-task");
   tableBody.appendChild(newRow);
 
@@ -230,7 +234,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       buttonTd.parentNode.remove();
     });
   }
-  //
   function createEdit() {
     const taskModal = document.querySelector(".modal");
     const editTd = createTaskProperty("td", "edit-td", newRow);
@@ -264,7 +267,20 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       editTaskButton.classList.remove("hidden");
 
       editTaskButton.addEventListener("click", () => {
-        console.log(newRow);
+        const targetTask = editTd.parentNode;
+        //
+        if (targetTask) {
+          const targetTitle = targetTask.querySelector(".todo-title");
+          const targetDate = targetTask.querySelector(".todo-date");
+          targetTitle.textContent = 123;
+          targetDate.value = "12/12/2000";
+
+          console.log(targetTitle);
+          newRow.style.backgroundColor = "lightgreen";
+        }
+        //
+        taskModal.classList.add("hidden");
+        overlay.classList.add("hidden");
       });
 
       const setTaskName = taskModal.querySelector(".change-title");
