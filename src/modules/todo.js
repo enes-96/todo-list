@@ -17,6 +17,8 @@ export default function manageItem() {
 
   function submitTask() {
     const taskSubmitButton = taskModal.querySelector(".task-submit");
+
+    // eslint-disable-next-line consistent-return
     taskSubmitButton.addEventListener("click", () => {
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
@@ -29,6 +31,7 @@ export default function manageItem() {
       if (!setTaskPriority.value) {
         return alert("priority???");
       }
+      // eslint-disable-next-line no-use-before-define
       createNewTask(
         setTaskName.value,
         setTasDate.value,
@@ -54,9 +57,9 @@ export default function manageItem() {
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
+
   newRow.setAttribute("id", taskCounter);
   taskCounter += 1;
-  console.log(newRow);
   newRow.classList.add("new-task");
   tableBody.appendChild(newRow);
 
@@ -125,12 +128,12 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     priorityWrapper.classList.add("todo-priority");
     priorityWrapper.style.pointerEvents = "none";
 
-    for (const priority of priorities) {
+    priorities.forEach((priority) => {
       const option = document.createElement("option");
       option.value = priority.toLowerCase();
       option.textContent = priority;
       priorityWrapper.appendChild(option);
-    }
+    });
 
     priorityWrapper.value = taskPriority;
 
@@ -249,32 +252,9 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     editButton.textContent = "edit";
     editButton.style.cursor = "pointer";
 
-    editButton.addEventListener("click", () => {
-      editModal();
-    });
-
     function editModal() {
       const editTaskButton = taskModal.querySelector(".task-edit");
       editTaskButton.classList.remove("hidden");
-
-      editTaskButton.addEventListener("click", () => {
-        let targetTask = editTd.parentNode;
-        //
-        if (targetTask) {
-          const targetTitle = targetTask.querySelector(".todo-title");
-          const targetDate = targetTask.querySelector(".todo-date");
-          const targetPriority = targetTask.querySelector(".todo-priority");
-          targetTitle.textContent = setTaskName.value;
-          targetDate.value = setTasDate.value;
-          targetPriority.value =
-            document.querySelector(".change-priority").value;
-          const targetComment = targetTask.querySelector(".user-added-comment");
-          targetComment.value = setTaskComment.value;
-        }
-        //
-        taskModal.classList.add("hidden");
-        overlay.classList.add("hidden");
-      });
 
       const setTaskName = taskModal.querySelector(".change-title");
       const setTasDate = taskModal.querySelector(".change-date");
@@ -290,7 +270,27 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       const overlay = document.querySelector(".overlay");
       taskModal.classList.toggle("hidden");
       overlay.classList.toggle("hidden");
+
+      editTaskButton.addEventListener("click", () => {
+        const targetTask = editButton.closest(".new-task");
+        if (targetTask) {
+          const targetTitle = targetTask.querySelector(".todo-title");
+          const targetDate = targetTask.querySelector(".todo-date");
+          const targetPriority = targetTask.querySelector(".todo-priority");
+          const targetComment = targetTask.querySelector(".user-added-comment");
+
+          targetTitle.textContent = setTaskName.value;
+          targetDate.value = setTasDate.value;
+          targetPriority.value = setTaskPriority.value;
+          targetComment.value = setTaskComment.value;
+        }
+        taskModal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      });
     }
+    editButton.addEventListener("click", () => {
+      editModal();
+    });
   }
 
   createCheckbox();
