@@ -1,13 +1,19 @@
-import { todos } from "./manageTodo.js";
+const todos = [];
+let taskCounter = 1;
 
 export default function manageItem() {
   const newTaskButton = document.querySelector(".add-new-task");
+  const taskModal = document.querySelector(".modal");
+
+  function toggleModal() {
+    const overlay = document.querySelector(".overlay");
+    taskModal.classList.toggle("hidden");
+    overlay.classList.toggle("hidden");
+  }
 
   newTaskButton.addEventListener("click", () => {
     toggleModal();
   });
-
-  const taskModal = document.querySelector(".modal");
 
   function submitTask() {
     const taskSubmitButton = taskModal.querySelector(".task-submit");
@@ -30,7 +36,6 @@ export default function manageItem() {
         setTaskPriority.value
       );
 
-      //reset modal
       setTaskName.value = "";
       setTasDate.value = "";
       setTaskPriority.value = "";
@@ -42,33 +47,18 @@ export default function manageItem() {
     const taskDeleteButton = taskModal.querySelector(".task-delete");
     taskDeleteButton.addEventListener("click", toggleModal);
   }
-  function toggleModal() {
-    const overlay = document.querySelector(".overlay");
-    taskModal.classList.toggle("hidden");
-    overlay.classList.toggle("hidden");
-  }
   submitTask();
   deleteTask();
 }
-
-let taskCounter = 1;
 
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
   newRow.setAttribute("id", taskCounter);
-  taskCounter++;
+  taskCounter += 1;
   console.log(newRow);
   newRow.classList.add("new-task");
   tableBody.appendChild(newRow);
-
-  createCheckbox();
-  createTitle();
-  createDate();
-  createPriority();
-  createComment();
-  createEdit();
-  createDelete();
 
   function createTaskProperty(
     elementProperty,
@@ -134,6 +124,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     const priorityWrapper = document.createElement("select");
     priorityWrapper.classList.add("todo-priority");
     priorityWrapper.style.pointerEvents = "none";
+
     for (const priority of priorities) {
       const option = document.createElement("option");
       option.value = priority.toLowerCase();
@@ -301,4 +292,12 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       overlay.classList.toggle("hidden");
     }
   }
+
+  createCheckbox();
+  createTitle();
+  createDate();
+  createPriority();
+  createComment();
+  createEdit();
+  createDelete();
 }
