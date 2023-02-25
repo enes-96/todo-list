@@ -267,16 +267,18 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       editTaskButton.classList.remove("hidden");
 
       editTaskButton.addEventListener("click", () => {
-        const targetTask = editTd.parentNode;
+        let targetTask = editTd.parentNode;
         //
         if (targetTask) {
           const targetTitle = targetTask.querySelector(".todo-title");
           const targetDate = targetTask.querySelector(".todo-date");
-          targetTitle.textContent = 123;
-          targetDate.value = "12/12/2000";
-
-          console.log(targetTitle);
-          newRow.style.backgroundColor = "lightgreen";
+          const targetPriority = targetTask.querySelector(".todo-priority");
+          targetTitle.textContent = setTaskName.value;
+          targetDate.value = setTasDate.value;
+          targetPriority.value =
+            document.querySelector(".change-priority").value;
+          const targetComment = targetTask.querySelector(".user-added-comment");
+          targetComment.value = setTaskComment.value;
         }
         //
         taskModal.classList.add("hidden");
