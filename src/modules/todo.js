@@ -273,17 +273,16 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
 
       editTaskButton.addEventListener("click", () => {
         const targetTask = editButton.closest(".new-task");
-        if (targetTask) {
-          const targetTitle = targetTask.querySelector(".todo-title");
-          const targetDate = targetTask.querySelector(".todo-date");
-          const targetPriority = targetTask.querySelector(".todo-priority");
-          const targetComment = targetTask.querySelector(".user-added-comment");
+        console.log(targetTask);
+        const targetTitle = targetTask.querySelector(".todo-title");
+        const targetDate = targetTask.querySelector(".todo-date");
+        const targetPriority = targetTask.querySelector(".todo-priority");
+        const targetComment = targetTask.querySelector(".user-added-comment");
 
-          targetTitle.textContent = setTaskName.value;
-          targetDate.value = setTasDate.value;
-          targetPriority.value = setTaskPriority.value;
-          targetComment.value = setTaskComment.value;
-        }
+        targetTitle.textContent = setTaskName.value;
+        targetDate.value = setTasDate.value;
+        targetPriority.value = setTaskPriority.value;
+        targetComment.value = setTaskComment.value;
         taskModal.classList.add("hidden");
         overlay.classList.add("hidden");
       });
