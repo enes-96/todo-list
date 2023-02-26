@@ -266,25 +266,27 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       setTaskPriority.value = taskPriority;
       setTaskComment.value = taskComment;
 
-      //
       const overlay = document.querySelector(".overlay");
       taskModal.classList.toggle("hidden");
       overlay.classList.toggle("hidden");
 
       editTaskButton.addEventListener("click", () => {
+        editButton.style.backgroundColor = "red";
         const targetTask = editButton.closest(".new-task");
-        console.log(targetTask);
-        const targetTitle = targetTask.querySelector(".todo-title");
-        const targetDate = targetTask.querySelector(".todo-date");
-        const targetPriority = targetTask.querySelector(".todo-priority");
-        const targetComment = targetTask.querySelector(".user-added-comment");
+        if (targetTask) {
+          const targetTitle = targetTask.querySelector(".todo-title");
+          const targetDate = targetTask.querySelector(".todo-date");
+          const targetPriority = targetTask.querySelector(".todo-priority");
+          const targetComment = targetTask.querySelector(".user-added-comment");
 
-        targetTitle.textContent = setTaskName.value;
-        targetDate.value = setTasDate.value;
-        targetPriority.value = setTaskPriority.value;
-        targetComment.value = setTaskComment.value;
-        taskModal.classList.add("hidden");
-        overlay.classList.add("hidden");
+          targetTitle.textContent = setTaskName.value;
+          targetDate.value = setTasDate.value;
+          targetPriority.value = setTaskPriority.value;
+          targetComment.value = setTaskComment.value;
+          taskModal.classList.add("hidden");
+          overlay.classList.add("hidden");
+          targetTask.removeAttribute("id");
+        }
       });
     }
     editButton.addEventListener("click", () => {

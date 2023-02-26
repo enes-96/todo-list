@@ -46,6 +46,8 @@ export default function sidebarJS() {
       projectIcon.classList.add("item-logo");
       createProject.appendChild(projectIcon);
     }
+    createIcon();
+
     const createProjectNameInput = document.createElement("input");
     createProjectNameInput.classList.add("projectNameInput");
     createProject.appendChild(createProjectNameInput);
@@ -128,7 +130,6 @@ export default function sidebarJS() {
     userProjectsContainer.appendChild(createProject);
     addContextMenu(createProject);
 
-    createIcon();
     deleteProject();
     editProject();
   }
