@@ -1,4 +1,6 @@
-const todos = [];
+// eslint-disable-next-line import/no-cycle
+import { todos } from "./manageTodo";
+
 let taskCounter = 1;
 
 export default function manageItem() {
@@ -46,12 +48,12 @@ export default function manageItem() {
       toggleModal();
     });
   }
-  function deleteTask() {
-    const taskDeleteButton = taskModal.querySelector(".task-delete");
-    taskDeleteButton.addEventListener("click", toggleModal);
+  function discardTask() {
+    const taskDiscardBtn = taskModal.querySelector(".task-delete");
+    taskDiscardBtn.addEventListener("click", toggleModal);
   }
   submitTask();
-  deleteTask();
+  discardTask();
 }
 
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
@@ -221,11 +223,14 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     deleteButton.style.cursor = "pointer";
 
     buttonWrapper.addEventListener("click", () => {
+      const taskToRemoveTitle = newRow.querySelector(".todo-title");
+
       const taskToRemove = todos.findIndex(
-        (todo) => newRow.id === todo.todo.id
+        (todo) => todo.title === taskToRemoveTitle.innerText
       );
       todos.splice(taskToRemove, 1);
-      buttonTd.parentNode.remove();
+      console.log(todos);
+      newRow.remove();
     });
   }
   function createEdit() {

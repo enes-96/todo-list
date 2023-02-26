@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { createNewTask } from "./todo";
 
 export const todos = [];
@@ -9,16 +10,23 @@ export default function manageTodos() {
   const submitTask = document.querySelector(".task-submit");
   const newProjetButton = document.getElementById("btnNewProject");
 
-  function addTodo(id, project, todo) {
-    todos.push({ id, project, todo });
+  function addTodo(id, project, todo, title) {
+    // eslint-disable-next-line object-curly-newline
+    todos.push({ id, project, todo, title });
   }
 
   function addNewTask() {
     const selectedProject = document.querySelector(".sidebar .selected");
     const addedTask = document.querySelectorAll(".new-task");
     addedTask.forEach((task) => {
+      const taskTitle = task.querySelector(".todo-title");
       if (!task.classList.contains("added")) {
-        addTodo((taskCounter += 1), selectedProject.innerText, task);
+        addTodo(
+          (taskCounter += 1),
+          selectedProject.innerText,
+          task,
+          taskTitle.textContent
+        );
         task.classList.add("added");
       }
     });
