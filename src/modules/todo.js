@@ -229,7 +229,6 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         (todo) => todo.title === taskToRemoveTitle.innerText
       );
       todos.splice(taskToRemove, 1);
-      console.log(todos);
       newRow.remove();
     });
   }
@@ -295,6 +294,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
       });
     }
     editButton.addEventListener("click", () => {
+      return alert("editing todos is under construction");
       editModal();
     });
   }
