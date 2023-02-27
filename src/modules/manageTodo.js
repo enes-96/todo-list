@@ -10,9 +10,9 @@ export default function manageTodos() {
   const submitTask = document.querySelector(".task-submit");
   const newProjetButton = document.getElementById("btnNewProject");
 
-  function addTodo(id, project, todo, title) {
+  function addTodo(id, project, todo, title, todoDay) {
     // eslint-disable-next-line object-curly-newline
-    todos.push({ id, project, todo, title });
+    todos.push({ id, project, todo, title, todoDay });
   }
 
   function addNewTask() {
@@ -20,12 +20,14 @@ export default function manageTodos() {
     const addedTask = document.querySelectorAll(".new-task");
     addedTask.forEach((task) => {
       const taskTitle = task.querySelector(".todo-title");
+      const taskDate = task.querySelector(".todo-date");
       if (!task.classList.contains("added")) {
         addTodo(
           (taskCounter += 1),
           selectedProject.innerText,
           task,
-          taskTitle.textContent
+          taskTitle.textContent,
+          taskDate.value
         );
         task.classList.add("added");
       }
@@ -33,13 +35,24 @@ export default function manageTodos() {
   }
 
   function getTodos(project) {
-    console.log(todos);
     return todos.filter((t) => t.project === project);
   }
 
   function displayTodos() {
     allProjects.forEach((project) => {
       project.addEventListener("click", () => {
+        if (project.innerText === "Today") {
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = String(today.getMonth() + 1).padStart(2, "0");
+          const day = String(today.getDate()).padStart(2, "0");
+          const currentDate = `${year}-${month}-${day}`;
+
+          console.log(currentDate); // outputs something like "2023-02-27"
+        }
+        if (project.innerText === "Upcoming") console.log(2);
+        if (project.innerText === "Anytime") console.log(3);
+
         const addedTask = document.querySelectorAll(".new-task");
         addedTask.forEach((task) => task.remove());
         getTodos(project.innerText).forEach((todo) => {
