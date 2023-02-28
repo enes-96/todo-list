@@ -41,33 +41,83 @@ export default function manageTodos() {
   function displayTodos() {
     allProjects.forEach((project) => {
       project.addEventListener("click", () => {
-        if (project.innerText === "Today") {
-          const today = new Date();
-          const year = today.getFullYear();
-          const month = String(today.getMonth() + 1).padStart(2, "0");
-          const day = String(today.getDate()).padStart(2, "0");
-          const currentDate = `${year}-${month}-${day}`;
-
-          console.log(currentDate); // outputs something like "2023-02-27"
-        }
-        if (project.innerText === "Upcoming") console.log(2);
-        if (project.innerText === "Anytime") console.log(3);
-
         const addedTask = document.querySelectorAll(".new-task");
         addedTask.forEach((task) => task.remove());
-        getTodos(project.innerText).forEach((todo) => {
-          const todoTitle = todo.todo.querySelector(".todo-title");
-          const todoDate = todo.todo.querySelector(".todo-date");
-          const todoComment = todo.todo.querySelector(".user-added-comment");
-          const todoPriority = todo.todo.querySelector(".todo-priority");
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        const currentDate = `${year}-${month}-${day}`;
 
-          createNewTask(
-            todoTitle.innerText,
-            todoDate.value,
-            todoComment.value,
-            todoPriority.value
+        if (project.innerText === "Todos") {
+          todos.forEach((task) => {
+            const todoTitle = task.todo.querySelector(".todo-title");
+            const todoDate = task.todo.querySelector(".todo-date");
+            const todoComment = task.todo.querySelector(".user-added-comment");
+            const todoPriority = task.todo.querySelector(".todo-priority");
+
+            createNewTask(
+              todoTitle.innerText,
+              todoDate.value,
+              todoComment.value,
+              todoPriority.value
+            );
+          });
+        }
+        if (project.innerText === "Today") {
+          const todayTodos = todos.filter(
+            (task) => task.todoDay === currentDate
           );
-        });
+
+          todayTodos.forEach((task) => {
+            const todoTitle = task.todo.querySelector(".todo-title");
+            const todoDate = task.todo.querySelector(".todo-date");
+            const todoComment = task.todo.querySelector(".user-added-comment");
+            const todoPriority = task.todo.querySelector(".todo-priority");
+
+            createNewTask(
+              todoTitle.innerText,
+              todoDate.value,
+              todoComment.value,
+              todoPriority.value
+            );
+          });
+        }
+        if (project.innerText === "Upcoming") {
+          const plannedTodos = todos.filter(
+            (task) => task.todoDay !== currentDate && task.todoDay !== ""
+          );
+          plannedTodos.forEach((task) => {
+            const todoTitle = task.todo.querySelector(".todo-title");
+            const todoDate = task.todo.querySelector(".todo-date");
+            const todoComment = task.todo.querySelector(".user-added-comment");
+            const todoPriority = task.todo.querySelector(".todo-priority");
+
+            createNewTask(
+              todoTitle.innerText,
+              todoDate.value,
+              todoComment.value,
+              todoPriority.value
+            );
+          });
+        }
+        if (project.innerText === "Anytime") {
+          const nonDate = todos.filter((task) => task.todoDay === "");
+          console.log(nonDate);
+          nonDate.forEach((task) => {
+            const todoTitle = task.todo.querySelector(".todo-title");
+            const todoDate = task.todo.querySelector(".todo-date");
+            const todoComment = task.todo.querySelector(".user-added-comment");
+            const todoPriority = task.todo.querySelector(".todo-priority");
+
+            createNewTask(
+              todoTitle.innerText,
+              todoDate.value,
+              todoComment.value,
+              todoPriority.value
+            );
+          });
+        }
       });
     });
   }
@@ -80,5 +130,4 @@ export default function manageTodos() {
   });
 
   displayTodos();
-  // i think something wrong here
 }
