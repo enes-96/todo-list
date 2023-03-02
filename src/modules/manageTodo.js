@@ -117,6 +117,8 @@ export default function manageTodos() {
               todoPriority.value
             );
           });
+        } else {
+          getTodos(project.innerText);
         }
       });
     });
