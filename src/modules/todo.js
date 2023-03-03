@@ -257,6 +257,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
     editButton.style.cursor = "pointer";
 
     function editModal() {
+      return alert("under construction");
       const editTaskButton = taskModal.querySelector(".task-edit");
       editTaskButton.classList.remove("hidden");
 
@@ -293,7 +294,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         }
       });
     }
-    editButton.addEventListener("click", () => alert("under construction"));
+    editButton.addEventListener("click", () => editModal());
   }
 
   createCheckbox();
