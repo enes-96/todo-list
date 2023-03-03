@@ -130,6 +130,7 @@ main {
 }
 h1 {
   font-size: var(--text-3xl);
+  font-weight: 500;
 }
 .add-new-task {
   cursor: pointer;
@@ -140,8 +141,12 @@ h1 {
   border-left: none;
   background-color: transparent;
   margin: 8px 0;
+  transition: 0.3s all;
 }
 
+.add-new-task:hover {
+  border-color: var(--color-grey-dark-3);
+}
 table {
   border-collapse: collapse;
 }
@@ -393,7 +398,7 @@ input[type="checkbox"] {
 .hideButton {
   color: white;
   background-color: white;
-  border: white 1px solid;
   pointer-events: none;
   user-select: none;
+  border: none;
 }
