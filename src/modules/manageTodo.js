@@ -118,7 +118,19 @@ export default function manageTodos() {
             );
           });
         } else {
-          getTodos(project.innerText);
+          getTodos(project.innerText).forEach((todo) => {
+            const todoTitle = todo.todo.querySelector(".todo-title");
+            const todoDate = todo.todo.querySelector(".todo-date");
+            const todoComment = todo.todo.querySelector(".user-added-comment");
+            const todoPriority = todo.todo.querySelector(".todo-priority");
+            //
+            createNewTask(
+              todoTitle.innerText,
+              todoDate.value,
+              todoComment.value,
+              todoPriority.value
+            );
+          });
         }
       });
     });
@@ -130,6 +142,5 @@ export default function manageTodos() {
     allProjects = document.querySelectorAll(".wrapper-project-item");
     displayTodos();
   });
-
   displayTodos();
 }

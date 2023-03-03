@@ -293,10 +293,7 @@ export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
         }
       });
     }
-    editButton.addEventListener("click", () => {
-      return alert("editing todos is under construction");
-      editModal();
-    });
+    editButton.addEventListener("click", () => alert("under construction"));
   }
 
   createCheckbox();
