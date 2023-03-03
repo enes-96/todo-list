@@ -390,3 +390,10 @@ input[type="checkbox"] {
 .comment-wrapper {
   cursor: pointer;
 }
+.hideButton {
+  color: white;
+  background-color: white;
+  border: white 1px solid;
+  pointer-events: none;
+  user-select: none;
+}

@@ -49,7 +49,10 @@ export default function manageTodos() {
         const day = String(today.getDate()).padStart(2, "0");
         const currentDate = `${year}-${month}-${day}`;
 
+        const removeButton = document.querySelector(".add-new-task");
+
         if (project.innerText === "Todos") {
+          removeButton.classList.add("hideButton");
           todos.forEach((task) => {
             const todoTitle = task.todo.querySelector(".todo-title");
             const todoDate = task.todo.querySelector(".todo-date");
@@ -65,10 +68,10 @@ export default function manageTodos() {
           });
         }
         if (project.innerText === "Today") {
+          removeButton.classList.remove("hideButton");
           const todayTodos = todos.filter(
             (task) => task.todoDay === currentDate
           );
-
           todayTodos.forEach((task) => {
             const todoTitle = task.todo.querySelector(".todo-title");
             const todoDate = task.todo.querySelector(".todo-date");
@@ -84,6 +87,8 @@ export default function manageTodos() {
           });
         }
         if (project.innerText === "Upcoming") {
+          removeButton.classList.remove("hideButton");
+
           const plannedTodos = todos.filter(
             (task) => task.todoDay !== currentDate && task.todoDay !== ""
           );
@@ -102,8 +107,8 @@ export default function manageTodos() {
           });
         }
         if (project.innerText === "Anytime") {
+          removeButton.classList.remove("hideButton");
           const nonDate = todos.filter((task) => task.todoDay === "");
-          console.log(nonDate);
           nonDate.forEach((task) => {
             const todoTitle = task.todo.querySelector(".todo-title");
             const todoDate = task.todo.querySelector(".todo-date");
