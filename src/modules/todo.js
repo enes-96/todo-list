@@ -59,7 +59,7 @@ export default function manageItem() {
 export function createNewTask(taskTitle, taskDate, taskComment, taskPriority) {
   const tableBody = document.querySelector("tbody");
   const newRow = document.createElement("tr");
-
+  localStorage.setItem("newTask", newRow);
   newRow.setAttribute("id", taskCounter);
   taskCounter += 1;
   newRow.classList.add("new-task");
