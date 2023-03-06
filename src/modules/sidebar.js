@@ -1,4 +1,6 @@
 export default function sidebarJS() {
+  const userProjects = [];
+  let projectData = [];
   const mainSection = document.getElementById("main");
   const newProjectButton = document.getElementById("btnNewProject");
 
@@ -133,6 +135,8 @@ export default function sidebarJS() {
     deleteProject();
     editProject();
     //
+    projectData.push(createProject);
+    localStorage.setItem("projectData", JSON.stringify(projectData));
   }
 
   selectProject();
@@ -141,4 +145,13 @@ export default function sidebarJS() {
     addNewProject();
     selectProject();
   });
+  function loadProjectFromLocalStorage() {
+    const savedProject = localStorage.getItem("projectData");
+    if (savedProject) {
+      projectData = JSON.parse(savedProject);
+      userProjects.push(...projectData);
+      console.log(userProjects);
+    }
+  }
+  loadProjectFromLocalStorage();
 }

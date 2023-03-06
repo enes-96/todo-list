@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import { createNewTask } from "./todo";
-import { saveDataToLocalStorage } from "..";
-export let todos = [];
+
+export const todos = [];
+
 // eslint-disable-next-line import/no-mutable-exports
 export let taskCounter = 0;
 
@@ -32,7 +33,7 @@ export default function manageTodos() {
         task.classList.add("added");
       }
     });
-    saveDataToLocalStorage();
+    localStorage.setItem("todoData", JSON.stringify(todos));
   }
 
   function getTodos(project) {
