@@ -1,1 +1,1 @@
-# todo-list
+This project is a large Todo application that was built over a period of three months. While the project has some bugs and issues, i have decided to keep it on our Github repository as a testament to our learning process and journey.
